@@ -8,7 +8,7 @@ import java.util.{Calendar, StringTokenizer}
  * Created by malig on 11/30/16.
  */
 
-object HistogramMovies extends BaselineApp {
+object HistogramMoviesBaseline extends BaselineApp {
   //  private val division = 0.5f
   //  private val exhaustive = 1
   

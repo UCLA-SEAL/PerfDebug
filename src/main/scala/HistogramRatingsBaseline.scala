@@ -11,7 +11,7 @@ import scala.collection.mutable
  * Created by malig on 11/30/16.
  */
 
-object HistogramRatings extends BaselineApp {
+object HistogramRatingsBaseline extends BaselineApp {
   //  private val division = 0.5f
   //  private val exhaustive = 1
   
