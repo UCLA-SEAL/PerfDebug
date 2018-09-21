@@ -3,6 +3,7 @@ import org.apache.spark.SparkContext._
 import java.util.{Calendar, StringTokenizer}
 
 /**
+ * Modified further for baseline usage by Jason on 9/21/18
  * Modified by Katherine on 8/10/18
  * Created by malig on 11/30/16.
  */
