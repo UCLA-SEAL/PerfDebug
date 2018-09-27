@@ -29,8 +29,9 @@ object StudentInfoBaseline extends BaselineApp {
       .set("spark.executor.memory", "2g").setMaster("local[6]")
       logFile = "studentData.txt"
     }else{
-      logFile = args(0)
-      sparkConf.setAppName("StudentInfoBaseline").setMaster("local[6]")
+      logFile = "/Users/jteoh/Code/Performance-Debug-Benchmarks/StudentInfo" +
+        "/studentData_1M_bias0_0.30.txt"
+      sparkConf.setAppName("StudentInfoBaseline").setMaster("local[6]") .set("spark.executor.memory", "2g").setMaster("local[6]")
       // local  = args(1).toInt
     }
     //set up spark context
@@ -49,6 +50,7 @@ object StudentInfoBaseline extends BaselineApp {
      **************************/
     //spark program starts here
     val records = ctx.textFile(logFile, 1)
+    println(logFile)
     println(records.getNumPartitions)
     // records.persist()
     val grade_age_pair = records.map(line => {
