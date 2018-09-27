@@ -91,9 +91,9 @@ object WordCountBaseline extends BaselineApp {
      * Time Logging
      * *************************/
     //To print out the result
-    for (tuple <- out) {
-      println(tuple._1 + ": " + tuple._2)
-    }
+    // for (tuple <- out) {
+    //   println(tuple._1 + ": " + tuple._2)
+    // }
     println("JOB'S DONE")
     ctx.stop()
   
