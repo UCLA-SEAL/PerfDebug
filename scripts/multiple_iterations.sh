@@ -15,8 +15,10 @@ fi
 
 CMD="sbt \"runMain $CLASS\""
 # echo $CMD
-LOGFILE="/tmp/$CLASS-logs"
-RESULTFILE="/tmp/$CLASS-results"
+OUTDIR="/tmp/perfdebug-separate-benchmarks"
+mkdir -p $OUTDIR 
+LOGFILE="$OUTDIR/$CLASS-logs"
+RESULTFILE="$OUTDIR/$CLASS-results"
 rm -f $RESULTFILE
 rm -f $LOGFILE
 echo "Printing collected times to $RESULTFILE, logs in $LOGFILE"

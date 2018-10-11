@@ -10,7 +10,11 @@ echo "NUM ITERATIONS: $NUM_ITERATIONS"
 # full list of classes!
 classes="StudentInfo WordCount InvertedIndex HistogramMovies HistogramRatings Weather TermVector"
 # classes="HistogramMovies HistogramRatings"
-OUTFILE=/tmp/all_benchmark_results_perfdebug.txt
+
+OUTDIR="/tmp/perfdebug-separate-benchmarks"
+mkdir -p $OUTDIR
+
+OUTFILE=$OUTDIR/all_benchmark_results_perfdebug.txt
 
 echo "FULL RESULTS COPIED IN $OUTFILE"
 rm -f $OUTFILE
@@ -27,7 +31,7 @@ for class in $classes; do
 	echo "CLASS: $class" | tee -a $OUTFILE
 	$DIR/multiple_iterations.sh $class $NUM_ITERATIONS
 	# only copy the results (note: these are conveniently printed in multiple_iterations.sh)
-	paste -sd " " /tmp/${class}-results >> $OUTFILE
+	paste -sd " " $OUTDIR/${class}-results >> $OUTFILE
 	echo "-----------" | tee -a $OUTFILE
 done;
 echo "------------------RESULTS------------------"
