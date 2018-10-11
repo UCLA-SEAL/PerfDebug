@@ -5,6 +5,10 @@ import org.apache.spark.SparkContext
 import java.io.File
 import java.io.PrintWriter
 
+import org.apache.spark.lineage.LineageContext
+import org.apache.spark.lineage.LineageContext._
+import org.apache.spark.lineage.rdd.Lineage
+
 object WeatherBaseline extends BaselineApp {
   def run(args: Array[String]) {
     //set up logging
@@ -33,6 +37,8 @@ object WeatherBaseline extends BaselineApp {
     //      lineage = true
     
     val ctx = new SparkContext(sparkConf)
+    val lc = new LineageContext(ctx)
+    lc.setCaptureLineage(true)
     
     
     //start recording time for lineage
@@ -46,7 +52,7 @@ object WeatherBaseline extends BaselineApp {
      * Time Logging
      * *************************/
     
-    val lines = ctx.textFile(logFile, 1)
+    val lines = lc.textFile(logFile, 1)
     val split = lines.flatMap{s =>
       val tokens = s.split(",")
       // finds the state for a zipcode
@@ -63,7 +69,7 @@ object WeatherBaseline extends BaselineApp {
         ((state , year)  , snow)
       ).iterator
     }
-    val deltaSnow = split.groupByKey().map{ s  =>
+    val deltaSnow: Lineage[((String, String), Float)] = split.groupByKey().map{ s  =>
       val delta =  s._2.max - s._2.min
       (s._1 , delta)
     }.filter(s => addSleep(s._2))

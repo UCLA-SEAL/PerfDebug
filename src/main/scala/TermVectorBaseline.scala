@@ -1,5 +1,7 @@
 import org.apache.spark.SparkContext._
+import org.apache.spark.lineage.LineageContext
 import org.apache.spark.{SparkConf, SparkContext}
+import org.apache.spark.lineage.LineageContext._
 //remove if not needed
 
 /** Modified by Jason from Katherine's repository, in turn modified from bigsift. 9/21/2018. */
@@ -46,7 +48,8 @@ object TermVectorBaseline extends BaselineApp {
       //lineage = true
       
       val ctx = new SparkContext(sparkConf)
-      
+      val lc = new LineageContext(ctx)
+      lc.setCaptureLineage(true)
       //start recording time for lineage
       /**************************
         Time Logging
@@ -58,7 +61,7 @@ object TermVectorBaseline extends BaselineApp {
         Time Logging
        **************************/
       
-      val lines = ctx.textFile(logFile, 1)
+      val lines = lc.textFile(logFile, 1)
       val wordDoc = lines
                     .map(s => {
                       var wordFreqMap: Map[String, Int] = Map()

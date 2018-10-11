@@ -148,3 +148,5 @@ tags
 
 # End of https://www.gitignore.io/api/vim,sbt,scala,macos,intellij
 
+# lib folder should be assembled separately, not commited
+lib/*

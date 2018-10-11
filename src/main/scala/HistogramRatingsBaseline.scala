@@ -1,7 +1,9 @@
 import java.util.{Calendar, StringTokenizer}
 
 import org.apache.spark.SparkContext._
+import org.apache.spark.lineage.LineageContext
 import org.apache.spark.{SparkConf, SparkContext}
+import org.apache.spark.lineage.LineageContext._
 
 import scala.collection.mutable
 
@@ -51,6 +53,8 @@ object HistogramRatingsBaseline extends BaselineApp {
       //      lineage = true
       
       val ctx = new SparkContext(sparkConf)
+      val lc = new LineageContext(ctx)
+      lc.setCaptureLineage(true)
       
       //start recording time for lineage
       /** ************************
@@ -63,7 +67,7 @@ object HistogramRatingsBaseline extends BaselineApp {
        * Time Logging
        * *************************/
       
-      val lines = ctx.textFile(logFile, 1)
+      val lines = lc.textFile(logFile, 1)
       
       //Compute once first to compare to the groundTruth to trace the lineage
       val ratings = lines.flatMap(s => {

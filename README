@@ -1,0 +1,7 @@
+To add dependencies:
+1. Create lib folder
+2. Copy (or just link) jars from titian assembly folder.
+2.a: For this development, used the titian 2.1 branch
+2.b: Also be sure to include the lineage jar if using titian 2.1 jar, as the classes are not in core automatically.
+2.b.i: You'll want to have built the assembly folder and lineage folder beforehand obviously. `build/mvn package -DskipTests` (and go get a coffee)
+3. I just feel like this list needs at least three items, and the above is a mess.

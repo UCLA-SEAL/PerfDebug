@@ -4,6 +4,8 @@
  * Minor edits by Jason (after Katherine).
  */
 
+import org.apache.spark.lineage.LineageContext
+import org.apache.spark.lineage.LineageContext._
 import org.apache.spark.{SparkConf, SparkContext}
 
 
@@ -37,6 +39,8 @@ object StudentInfoBaseline extends BaselineApp {
     //set up spark context
     val ctx = new SparkContext(sparkConf)
     ctx.setLogLevel("ERROR")
+    val lc = new LineageContext(ctx)
+    lc.setCaptureLineage(true)
     
     //start recording time for lineage
     /**************************
@@ -49,7 +53,8 @@ object StudentInfoBaseline extends BaselineApp {
         Time Logging
      **************************/
     //spark program starts here
-    val records = ctx.textFile(logFile, 1)
+    val records = lc.textFile(logFile, 1)
+    
     println(logFile)
     println(records.getNumPartitions)
     // records.persist()

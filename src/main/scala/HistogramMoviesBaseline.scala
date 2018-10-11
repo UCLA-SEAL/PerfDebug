@@ -2,6 +2,9 @@ import org.apache.spark.{SparkConf, SparkContext}
 import org.apache.spark.SparkContext._
 import java.util.{Calendar, StringTokenizer}
 
+import org.apache.spark.lineage.LineageContext
+import org.apache.spark.lineage.LineageContext._
+
 /**
  * Modified further for baseline usage by Jason on 9/21/18
  * Modified by Katherine on 8/10/18
@@ -48,6 +51,8 @@ object HistogramMoviesBaseline extends BaselineApp {
     //      lineage = true
     
     val ctx = new SparkContext(sparkConf)
+    val lc = new LineageContext(ctx)
+    lc.setCaptureLineage(true)
     
     //start recording time for lineage
     /** ************************
@@ -60,7 +65,7 @@ object HistogramMoviesBaseline extends BaselineApp {
      * Time Logging
      * *************************/
     
-    val lines = ctx.textFile(logFile, 1)
+    val lines = lc.textFile(logFile, 1)
     
     //Compute once first to compare to the groundTruth to trace the lineage
     val averageRating = lines.map { s =>

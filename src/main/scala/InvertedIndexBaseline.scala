@@ -1,8 +1,9 @@
 // Modified by Katherine on the base of BigSift Benchmark
 // Modified further by Jason (jteoh) on 9/14/2018
 
+import org.apache.spark.lineage.LineageContext
+import org.apache.spark.lineage.LineageContext._
 import org.apache.spark.{SparkConf, SparkContext}
-
 
 import scala.collection.mutable.MutableList
 object InvertedIndexBaseline extends BaselineApp {
@@ -35,6 +36,8 @@ object InvertedIndexBaseline extends BaselineApp {
       //lineage = true
   
       val ctx = new SparkContext(sparkConf)
+      val lc = new LineageContext(ctx)
+      lc.setCaptureLineage(true)
   
       //start recording time for lineage
       /** ************************
@@ -47,7 +50,7 @@ object InvertedIndexBaseline extends BaselineApp {
        * Time Logging
        * *************************/
   
-      val lines = ctx.textFile(logFile, 1)
+      val lines = lc.textFile(logFile, 1)
       val wordDoc = lines.flatMap(s => {
         val wordDocList: MutableList[(String, String)] = MutableList()
         val colonIndex = s.lastIndexOf("^")

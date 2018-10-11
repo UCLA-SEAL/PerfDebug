@@ -1,5 +1,7 @@
 import org.apache.spark.{SparkConf, SparkContext}
 import org.apache.spark.SparkContext
+import org.apache.spark.lineage.LineageContext
+import org.apache.spark.lineage.LineageContext._
 
 /**
  * jteoh: derived from Katherine's work on benchmarks, in turn derived from previous work related
@@ -33,6 +35,8 @@ object WordCountBaseline extends BaselineApp {
     
     //set up spark context
     val ctx = new SparkContext(sparkConf)
+    val lc = new LineageContext(ctx)
+    lc.setCaptureLineage(true)
     
     //start recording time for lineage
     /** ************************
@@ -44,7 +48,7 @@ object WordCountBaseline extends BaselineApp {
     /** ************************
      * Time Logging
      * *************************/
-    val lines = ctx.textFile(logFile, 5)
+    val lines = lc.textFile(logFile, 5)
     
     val sequence = lines.filter(s => filterSym(s)).flatMap(s => {
       s.split(" ").map(w => returnTuple(s, w))
