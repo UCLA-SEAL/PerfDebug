@@ -18,7 +18,7 @@ object StudentInfo extends LineageBaseApp(
     // jteoh: only conf-specific configuration is this one, which might not be required for usual
     // execution.
     //defaultConf.set("spark.executor.memory", "2g")
-    logFile = args.headOption.getOrElse("studentData.txt")
+    logFile = args.headOption.getOrElse("/Users/jteoh/Code/Performance-Debug-Benchmarks/StudentInfo/studentData_1M_bias0_0.30.txt")
     defaultConf.setAppName(s"${appName}-${logFile}")
   }
   
