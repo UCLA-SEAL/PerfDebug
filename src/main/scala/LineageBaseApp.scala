@@ -72,9 +72,7 @@ abstract class LineageBaseApp(var lineageEnabled: Boolean = true,
     val sc = new SparkContext(conf)
     val lc = new LineageContext(sc)
     lc.setCaptureLineage(lineageEnabled)
-    println("WITH IGNITE?: " + withIgnite)
     if(withIgnite) {
-      println("HUZZAH")
       Ignition.setClientMode(true)
       LineageCacheRepository.useSimpleIgniteCacheRepository(sc)
       
