@@ -8,7 +8,7 @@ NUM_ITERATIONS=${1:-10}
 echo "NUM ITERATIONS: $NUM_ITERATIONS"
 # files=$(find ../src/ -name "*Baseline.scala")
 classes="StudentInfoBaseline WordCountBaseline InvertedIndexBaseline HistogramMoviesBaseline HistogramRatingsBaseline WeatherBaseline TermVectorBaseline"
-classes="HistogramMoviesBaseline HistogramRatingsBaseline"
+#classes="HistogramMoviesBaseline HistogramRatingsBaseline"
 OUTFILE=/tmp/all_benchmark_results_titian.txt
 
 echo "FULL RESULTS COPIED IN $OUTFILE"
