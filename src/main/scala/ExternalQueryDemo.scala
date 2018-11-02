@@ -1,8 +1,10 @@
 import ExternalQueryDemo.ExecutionMode
+import org.apache.commons.lang3.StringUtils
 import org.apache.spark.SparkConf
 import org.apache.spark.lineage.LineageContext
 import org.apache.spark.lineage.perfdebug.lineageV2.LineageWrapper
 import org.apache.spark.lineage.rdd.Lineage
+import org.apache.spark.rdd.RDD
 
 /**
  * Demo of querying after execution, relying on external cache (in this case, Ignite). It takes in two parameters:
@@ -22,7 +24,9 @@ object ExternalQueryDemo extends LineageBaseApp(
   
   private object ExecutionMode extends Enumeration {
     val BACKWARD_ALL, BACKWARD_ALL_WITH_HADOOP_INPS, FORWARD_SUM, FORWARD_SUM_AND_LINEAGE_TRACE,
-    FORWARD_SUM_AND_LINEAGE_INPUT_JOIN, DEFAULT = Value
+    FORWARD_SUM_AND_LINEAGE_INPUT_JOIN, SLOWEST_INPUTS_QUERY, SLOWEST_INPUTS_QUERY_V2,
+    BOTH_SLOWEST_INPUT_VERSIONS, DEFAULT =
+      Value
   }
   import ExecutionMode._
   
@@ -97,6 +101,80 @@ object ExternalQueryDemo extends LineageBaseApp(
             joinHadoopWrappersAndInputs(hadoopSourceLineageWrappers, hadoopSourceRDDs)
           val counts = joinedResults.map(_.count())
           println(s"Forward Sum + Lineage Trace + join counts: $counts")
+        case SLOWEST_INPUTS_QUERY =>
+          val perfWrapper = lineage.traceSlowestInputPerformance(
+            traceInputScope = false ,
+            printDebugging = false,
+            printLimit = defaultPrintLimit)
+          val slowestInputs = perfWrapper.takeSlowestInputs(2)
+          val offSetToTextRank: RDD[(Long, (String, Long))] =
+            slowestInputs.joinInputTextRDDWithRankScore(hadoopSourceRDDs.head)
+          // substring the string portion in case it's too long for printing.
+          
+          val result: Array[(Long, (Long, String))] = offSetToTextRank.collect().map(x =>
+                                 (x._2._2, (x._1, StringUtils.abbreviate(x._2._1, 1000))))
+                                                      .sortBy(-_._1)
+          println("Hadoop results: (impact, (offset, text)")
+          result.foreach(println)
+        //          val displayRDD: RDD[(Long, (Long, String))] =
+        //            offSetToTextRank.map(x =>
+        //                                   (x._2._2, (x._1, StringUtils.abbreviate(x._2._1, 1000))))
+        //            .sortByKey(ascending = false)
+        //          printRDDWithMessage(displayRDD, "Hadoop results, with approximate estimation of " +
+        //            "latency removal (heuristic score):")
+        case SLOWEST_INPUTS_QUERY_V2 =>
+          val perfWrapper = lineage.traceSlowestInputPerformance(
+            traceInputScope = false ,
+            printDebugging = false,
+            printLimit = defaultPrintLimit)
+          val slowestInputs = perfWrapper.takeSingleSlowestInputBeta()
+          val offSetToTextRank: RDD[(Long, (String, Long))] =
+            slowestInputs.joinInputTextRDDWithRankScore(hadoopSourceRDDs.head)
+          // substring the string portion in case it's too long for printing.
+  
+          val result: Array[(Long, (Long, String))] = offSetToTextRank.collect().map(x =>
+                                                                                       (x._2._2, (x._1, StringUtils.abbreviate(x._2._1, 1000))))
+                                                      .sortBy(-_._1)
+          println("Hadoop results: (impact, (offset, text)")
+          result.foreach(println)
+        case BOTH_SLOWEST_INPUT_VERSIONS =>
+          val perfWrapper = lineage.traceSlowestInputPerformance(
+            traceInputScope = false ,
+            printDebugging = false,
+            printLimit = defaultPrintLimit)
+          if(true) { // V1 test
+            val slowestInputs = perfWrapper.takeSlowestInputs(1)
+            val offSetToTextRank: RDD[(Long, (String, Long))] =
+              slowestInputs.joinInputTextRDDWithRankScore(hadoopSourceRDDs.head)
+            // substring the string portion in case it's too long for printing.
+  
+            val result: Array[(Long, (Long, String))] = offSetToTextRank.collect().map(x =>
+                                                                                         (x._2._2, (x._1, StringUtils.abbreviate(x._2._1, 1000))))
+              
+                                                        .sortBy(-_._1)
+            println("Hadoop results V1: (impact, (offset, text)")
+            result.foreach(println)
+            
+            val v1Record = result.head
+            println("V1 Impact: " + v1Record._1)
+            println("V1 Record: " + v1Record._2._2)
+          }
+          if(true) { // V2 test
+            val slowestInputs = perfWrapper.takeSingleSlowestInputBeta()
+            val offSetToTextRank: RDD[(Long, (String, Long))] =
+              slowestInputs.joinInputTextRDDWithRankScore(hadoopSourceRDDs.head)
+            // substring the string portion in case it's too long for printing.
+    
+            val result: Array[(Long, (Long, String))] = offSetToTextRank.collect().map(x =>
+                                                                                         (x._2._2, (x._1, StringUtils.abbreviate(x._2._1, 1000))))
+                                                        .sortBy(-_._1)
+            println("Hadoop results V2: (impact, (offset, text)")
+            result.foreach(println)
+            
+            val v2Record = result.head
+            println("V2 Impact: " + v2Record._1)
+            println("V2 Record: " + v2Record._2._2)
+          }
         case DEFAULT =>
           val perf = lineage.tracePerformance(printDebugging = true,
                                               printLimit = defaultPrintLimit)

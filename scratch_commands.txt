@@ -1,0 +1,56 @@
+#gshuf -n 10 studentData_5M.txt # or multiple, to get multiple results
+
+scripts/stop_ignite.sh
+scripts/start_ignite.sh
+
+fgrep -v "vlvpueqp wc female 19 0 IndustrialEngineering" studentData_5M.txt > studentData_5M_filtered.txt
+
+wc -l studentData_5M* # make sure only one line filtered
+
+
+sbt "runMain StudentInfo5M /Users/jteoh/Code/Performance-Debug-Benchmarks/StudentInfo/studentData_5M.txt \"vlvpueqp wc female 19 0 IndustrialEngineering\" 10000"
+
+# sbt "runMain ExternalQueryDemo local-1541118294192 SLOWEST_INPUTS_QUERY /Users/jteoh/Code/Performance-Debug-Benchmarks/StudentInfo/studentData_5M.txt"
+
+# sbt "runMain ExternalQueryDemo local-1541118294192 SLOWEST_INPUTS_QUERY_V2 /Users/jteoh/Code/Performance-Debug-Benchmarks/StudentInfo/studentData_5M.txt"
+
+sbt "runMain ExternalQueryDemo local-1541118294192 BOTH_SLOWEST_INPUT_VERSIONS /Users/jteoh/Code/Performance-Debug-Benchmarks/StudentInfo/studentData_5M.txt"
+
+
+scripts/stop_ignite.sh
+scripts/start_ignite.sh
+
+sbt "runMain StudentInfo5M /Users/jteoh/Code/Performance-Debug-Benchmarks/StudentInfo/studentData_5M_filtered.txt"
+
+# CLASS="StudentInfo5M" DATA_FILE="/Users/jteoh/Code/Performance-Debug-Benchmarks/StudentInfo/studentData_5M.txt" RECORD="vlvpueqp wc female 19 0 IndustrialEngineering" DELAY="10000" scripts/slowest_inputs_evaluation.sh
+# CLASS="StudentInfo5M" DATA_FILE="/Users/jteoh/Code/Performance-Debug-Benchmarks/StudentInfo/studentData_5M.txt" RECORD="fqdnmsqt kjybgsphrntxbgk male 25 3 Law" DELAY="10000" scripts/slowest_inputs_evaluation.sh
+# CLASS="StudentInfo5M" DATA_FILE="/Users/jteoh/Code/Performance-Debug-Benchmarks/StudentInfo/studentData_5M.txt" RECORD="ppww zuotdxjphkyu female 19 0 Business" DELAY="10000" scripts/slowest_inputs_evaluation.sh
+
+================================================================================================
+export DELAY=10000 # general setting
+
+# Student Info
+export CLASS="StudentInfo5M"
+export DATA_FILE="/Users/jteoh/Code/Performance-Debug-Benchmarks/StudentInfo/studentData_5M.txt"
+
+# Word Count
+export CLASS="WordCount" 
+export DATA_FILE="/Users/jteoh/Documents/datasets/wikipedia_50GB_subset/file100096k"
+# sort "/Users/jteoh/Documents/datasets/wikipedia_50GB_subset/file100096k" | uniq -u | gshuf -n 20 > /tmp/wc_uniq_shuf.out
+# fgrep '' "/Users/jteoh/Documents/datasets/wikipedia_50GB_subset/file100096k" | wc -l 
+
+# Movie Ratings
+export CLASS="HistogramRatings" 
+export DATA_FILE="/Users/jteoh/Code/BigSummary-Experiments/experiments/MoviesAnalysis/data/file1s.data"
+# sort "/Users/jteoh/Code/BigSummary-Experiments/experiments/MoviesAnalysis/data/file1s.data" | uniq -u | gshuf -n 20 > /tmp/mr_uniq_shuf.out
+
+
+# Weather
+export CLASS="Weather" 
+export DATA_FILE="/Users/jteoh/Code/BigSummary-Experiments/experiments/WeatherAnalysis/data/part-00000"
+# sort "/Users/jteoh/Code/BigSummary-Experiments/experiments/WeatherAnalysis/data/part-00000" | uniq -u | gshuf -n 20 > /tmp/weather_uniq_shuf.out
+
+
+
+export RECORD="wjorz h female 25 3 Economics" 
+scripts/slowest_inputs_evaluation.sh

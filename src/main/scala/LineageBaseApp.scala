@@ -233,4 +233,23 @@ abstract class LineageBaseApp(var lineageEnabled: Boolean = true,
     }
     block
   }
+  
+  var delayTarget: Option[String] = _ // eg "ownz htpnuohgpx female 18 0 Biology"
+  var delayTime: Option[Long] = _ // time in milliseconds, eg 10000
+  
+  def setDelayOpts(args: Array[String], baseOffset: Int = 0): Unit = {
+    delayTarget = args.lift(baseOffset + 1)
+    delayTime = args.lift(baseOffset + 2).map(_.toLong)
+    if(delayTarget.isDefined) {
+      println("Delay target: " + delayTarget.get)
+      println("Delay time: " + delayTime.get)
+    }
+  }
+  
+  def cmdLineDelay(x: String): String = {
+    if(delayTarget.contains(x)) {
+      Thread.sleep(delayTime.get)
+    }
+    x
+  }
 }

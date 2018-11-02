@@ -16,16 +16,16 @@ object HistogramRatings extends LineageBaseApp(
                                               lineageEnabled = true,
                                               sparkLogsEnabled = false,
                                               sparkEventLogsEnabled = true,
-                                              igniteLineageCloseDelay = 5 * 1000
+                                              igniteLineageCloseDelay = 15 * 1000
                                              ) {
   var logFile: String = _
-  val WITH_ARTIFICIAL_DELAY  = false // TODO there is no artificial delay introduced here yet.
   override def initConf(args: Array[String], defaultConf: SparkConf): SparkConf = {
     // jteoh: only conf-specific configuration is this one, which might not be required for usual
     // execution.
     defaultConf.set("spark.executor.memory", "2g")
     // 2106 lines, 98MB
     logFile = args.headOption.getOrElse("/Users/jteoh/Code/BigSummary-Experiments/experiments/MoviesAnalysis/data/file1s.data")
+    setDelayOpts(args)
     defaultConf.setAppName(s"${appName}-lineage:${lineageEnabled}-${logFile}")
   }
   
@@ -71,9 +71,10 @@ override def run(lc: LineageContext, args: Array[String]): Unit = {
    * *************************/
   
   val lines = lc.textFile(logFile, 1)
+  val delayedLines = lines.map(cmdLineDelay)
   
   //Compute once first to compare to the groundTruth to trace the lineage
-  val ratings = lines.flatMap(s => {
+  val ratings = delayedLines.flatMap(s => {
     var ratingMap : Map[Int, Int] =  Map()
     var rating: Int = 0
     var reviewIndex: Int = 0
@@ -169,4 +170,13 @@ override def run(lc: LineageContext, args: Array[String]): Unit = {
     record< 0
   }
   
+  override def cmdLineDelay(x: String): String = {
+    // for movie ratings, we only pass the movie id because we know it's a unique key.
+    val movieIndex = x.indexOf(":")
+    if (movieIndex > 0) {
+      val movieStr = x.substring(0,movieIndex)
+      super.cmdLineDelay(movieStr)
+    }
+    x
+  }
 }

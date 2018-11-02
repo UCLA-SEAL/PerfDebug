@@ -17,11 +17,14 @@ object StudentInfo5M extends LineageBaseApp(
   
   var logFile: String = _
   //  private val exhaustive = 0
+  
   override def initConf(args: Array[String], defaultConf: SparkConf): SparkConf = {
     // jteoh: only conf-specific configuration is this one, which might not be required for usual
     // execution.
     //defaultConf.set("spark.executor.memory", "2g")
     logFile = args.headOption.getOrElse("/Users/jteoh/Code/Performance-Debug-Benchmarks/StudentInfo/studentData_5M.txt")
+    
+    setDelayOpts(args)
     defaultConf.setAppName(s"${appName}-${logFile}")
   }
   
@@ -49,8 +52,9 @@ object StudentInfo5M extends LineageBaseApp(
     //spark program starts here
     println(s"Using logFile $logFile")
     val records = lc.textFile(logFile)
+    val delayedRecords = records.map(cmdLineDelay)
     // records.persist()
-    val grade_age_pair = records.map(line => {
+    val grade_age_pair = delayedRecords.map(line => {
       val list = line.split(" ")
       (list(4).toInt, list(3).toInt)
     })
@@ -133,4 +137,5 @@ object StudentInfo5M extends LineageBaseApp(
     printHadoopSources(slowestRec, records)
     slowestRec.traceBackAll().joinInputTextRDD(records)
   }
+  
 }

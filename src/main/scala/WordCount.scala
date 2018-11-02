@@ -18,6 +18,7 @@ object WordCount extends LineageBaseApp(
     defaultConf.set("spark.executor.memory", "2g")
     // defaultConf.set("spark.driver.memory", "2g")
     logFile = args.headOption.getOrElse("/Users/jteoh/Documents/datasets/wikipedia_50GB_subset/file100096k")
+    setDelayOpts(args)
     defaultConf.setAppName(s"${appName}-lineage:${lineageEnabled}-${logFile}")
   }
   override def run(lc: LineageContext, args: Array[String]): Unit = {
@@ -40,8 +41,8 @@ object WordCount extends LineageBaseApp(
      * Time Logging
      * *************************/
     val lines: Lineage[String] = lc.textFile(logFile, 5)
-  
-    val sequence: Lineage[(String, Int)] = lines.filter(s => filterSym(s)).flatMap(s => {
+    val delayedLines = lines.map(cmdLineDelay)
+    val sequence: Lineage[(String, Int)] = delayedLines.filter(s => filterSym(s)).flatMap(s => {
       s.split(" ").map(w => returnTuple(s, w))
     }).reduceByKey(_ + _)//.filter(s => failure(s))
   

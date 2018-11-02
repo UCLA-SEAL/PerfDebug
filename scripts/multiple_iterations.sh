@@ -5,6 +5,7 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
 
 CLASS=${1}
 NUM_ITERATIONS=${2}
+PROGRAM_ARGS=${@:3}
 if [ -z "$CLASS" ]; then
   echo "Please specify class name"
   exit 1
@@ -13,7 +14,8 @@ elif [ -z "$NUM_ITERATIONS" ]; then
   exit 3
 fi
 
-CMD="sbt \"runMain $CLASS\""
+CMD="sbt \"runMain $CLASS $PROGRAM_ARGS\""
+
 # echo $CMD
 OUTDIR="/tmp/perfdebug-separate-benchmarks"
 mkdir -p $OUTDIR 

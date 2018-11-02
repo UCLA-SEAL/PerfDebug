@@ -21,6 +21,7 @@ object Weather extends LineageBaseApp(
     // execution.
     //defaultConf.set("spark.executor.memory", "2g")
     logFile = args.headOption.getOrElse("/Users/jteoh/Code/BigSummary-Experiments/experiments/WeatherAnalysis/data/part-00000")
+    setDelayOpts(args)
     defaultConf.setAppName(s"${appName}-${logFile}")
   }
   
@@ -38,7 +39,8 @@ object Weather extends LineageBaseApp(
      * *************************/
     
     val lines = lc.textFile(logFile, 1)
-    val split: Lineage[((String, String), Float)] = lines.flatMap{ s =>
+    val delayedLines = lines.map(cmdLineDelay)
+    val split: Lineage[((String, String), Float)] = delayedLines.flatMap{ s =>
       val tokens = s.split(",")
       // finds the state for a zipcode
       var state = zipToState(tokens(0))
