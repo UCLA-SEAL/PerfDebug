@@ -248,6 +248,7 @@ abstract class LineageBaseApp(var lineageEnabled: Boolean = true,
   
   def cmdLineDelay(x: String): String = {
     if(delayTarget.contains(x)) {
+      println("DELAY TARGET FOUND!")
       Thread.sleep(delayTime.get)
     }
     x

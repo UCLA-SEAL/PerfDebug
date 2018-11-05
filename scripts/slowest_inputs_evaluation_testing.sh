@@ -125,13 +125,13 @@ if [[ "$V1_RESULT" = "${RECORD}"* ]]; then
 	echo -e "V1: POSITIVE MATCH" | tee -a $OUTFILE
 else
 	echo -e "V1: NEGATIVE MATCH" | tee -a $OUTFILE
-	echo -e "$V1_RESULT" | tee -a $OUTFILE
+	echo -e "V1 Record: $V1_RESULT" | tee -a $OUTFILE
 fi
 if [[ "$V2_RESULT" = "$RECORD"* ]]; then
 	echo -e "V2: POSITIVE MATCH" | tee -a $OUTFILE
 else
 	echo -e "V2: NEGATIVE MATCH" | tee -a $OUTFILE
-	echo -e "$V2_RESULT" | tee -a $OUTFILE
+	echo -e "V2 Record: $V2_RESULT" | tee -a $OUTFILE
 fi
 echo "PerfTrace approx: $QUERY_RUNTIME"  | tee -a $OUTFILE
 echo "V1_IMPACT: $V1_IMPACT" | tee -a $OUTFILE

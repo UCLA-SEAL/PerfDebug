@@ -1,0 +1,160 @@
+-----------------
+FINAL RESULTS FOR HistogramRatings /Users/jteoh/Code/BigSummary-Experiments/experiments/MoviesAnalysis/data/file1s.data 1060 -> 10000: 
+RECORD: 1060
+V1: POSITIVE MATCH
+V2: POSITIVE MATCH
+PerfTrace approx: 13270
+V1_IMPACT: 9979
+V2_IMPACT: 0
+Delayed  execution time: 12538
+Filtered execution time: 3214
+PASTE-FRIENDLY:
+13270
+9979
+0
+12538
+3214
+-----------------
+FINAL RESULTS FOR HistogramRatings /Users/jteoh/Code/BigSummary-Experiments/experiments/MoviesAnalysis/data/file1s.data 814 -> 10000: 
+RECORD: 814
+V1: POSITIVE MATCH
+V2: POSITIVE MATCH
+PerfTrace approx: 12603
+V1_IMPACT: 10002
+V2_IMPACT: 0
+Delayed  execution time: 12346
+Filtered execution time: 3266
+PASTE-FRIENDLY:
+12603
+10002
+0
+12346
+3266
+-----------------
+FINAL RESULTS FOR HistogramRatings /Users/jteoh/Code/BigSummary-Experiments/experiments/MoviesAnalysis/data/file1s.data 1079 -> 10000: 
+RECORD: 1079
+V1: POSITIVE MATCH
+V2: POSITIVE MATCH
+PerfTrace approx: 12994
+V1_IMPACT: 9978
+V2_IMPACT: 0
+Delayed  execution time: 12667
+Filtered execution time: 3139
+PASTE-FRIENDLY:
+12994
+9978
+0
+12667
+3139
+-----------------
+FINAL RESULTS FOR HistogramRatings /Users/jteoh/Code/BigSummary-Experiments/experiments/MoviesAnalysis/data/file1s.data 413 -> 10000: 
+RECORD: 413
+V1: POSITIVE MATCH
+V2: POSITIVE MATCH
+PerfTrace approx: 12872
+V1_IMPACT: 9925
+V2_IMPACT: 0
+Delayed  execution time: 12778
+Filtered execution time: 3416
+PASTE-FRIENDLY:
+12872
+9925
+0
+12778
+3416
+-----------------
+FINAL RESULTS FOR HistogramRatings /Users/jteoh/Code/BigSummary-Experiments/experiments/MoviesAnalysis/data/file1s.data 714 -> 10000: 
+RECORD: 714
+V1: POSITIVE MATCH
+V2: POSITIVE MATCH
+PerfTrace approx: 12871
+V1_IMPACT: 9966
+V2_IMPACT: 0
+Delayed  execution time: 12426
+Filtered execution time: 2872
+PASTE-FRIENDLY:
+12871
+9966
+0
+12426
+2872
+-----------------
+FINAL RESULTS FOR HistogramRatings /Users/jteoh/Code/BigSummary-Experiments/experiments/MoviesAnalysis/data/file1s.data 260 -> 10000: 
+RECORD: 260
+V1: POSITIVE MATCH
+V2: POSITIVE MATCH
+PerfTrace approx: 12386
+V1_IMPACT: 9893
+V2_IMPACT: 0
+Delayed  execution time: 12451
+Filtered execution time: 2993
+PASTE-FRIENDLY:
+12386
+9893
+0
+12451
+2993
+-----------------
+FINAL RESULTS FOR HistogramRatings /Users/jteoh/Code/BigSummary-Experiments/experiments/MoviesAnalysis/data/file1s.data 815 -> 10000: 
+RECORD: 815
+V1: POSITIVE MATCH
+V2: POSITIVE MATCH
+PerfTrace approx: 12780
+V1_IMPACT: 10000
+V2_IMPACT: 0
+Delayed  execution time: 12429
+Filtered execution time: 3253
+PASTE-FRIENDLY:
+12780
+10000
+0
+12429
+3253
+-----------------
+FINAL RESULTS FOR HistogramRatings /Users/jteoh/Code/BigSummary-Experiments/experiments/MoviesAnalysis/data/file1s.data 1438 -> 10000: 
+RECORD: 1438
+V1: POSITIVE MATCH
+V2: POSITIVE MATCH
+PerfTrace approx: 12710
+V1_IMPACT: 9998
+V2_IMPACT: 0
+Delayed  execution time: 12406
+Filtered execution time: 2926
+PASTE-FRIENDLY:
+12710
+9998
+0
+12406
+2926
+-----------------
+FINAL RESULTS FOR HistogramRatings /Users/jteoh/Code/BigSummary-Experiments/experiments/MoviesAnalysis/data/file1s.data 744 -> 10000: 
+RECORD: 744
+V1: POSITIVE MATCH
+V2: POSITIVE MATCH
+PerfTrace approx: 13447
+V1_IMPACT: 9972
+V2_IMPACT: 0
+Delayed  execution time: 12462
+Filtered execution time: 2892
+PASTE-FRIENDLY:
+13447
+9972
+0
+12462
+2892
+-----------------
+FINAL RESULTS FOR HistogramRatings /Users/jteoh/Code/BigSummary-Experiments/experiments/MoviesAnalysis/data/file1s.data 1770 -> 10000: 
+RECORD: 1770
+V1: POSITIVE MATCH
+V2: POSITIVE MATCH
+PerfTrace approx: 12851
+V1_IMPACT: 9897
+V2_IMPACT: 0
+Delayed  execution time: 12896
+Filtered execution time: 2900
+PASTE-FRIENDLY:
+12851
+9897
+0
+12896
+2900

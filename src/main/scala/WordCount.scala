@@ -127,4 +127,14 @@ object WordCount extends LineageBaseApp(
     // Thread.sleep(5000)
     Tuple2(key, 1)
   } */
+
+  /**override def cmdLineDelay(x: String): String = {
+    // for movie ratings, we only pass the movie id because we know it's a unique key.
+    val substringFound = delayTarget.exists(x.contains)
+    if(substringFound) {
+      println("DELAY TARGET FOUND!")
+      Thread.sleep(delayTime.get)
+    }
+    x
+  }*/
 }

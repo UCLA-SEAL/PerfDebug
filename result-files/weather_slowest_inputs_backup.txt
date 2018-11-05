@@ -1,0 +1,192 @@
+-----------------
+FINAL RESULTS FOR Weather /Users/jteoh/Code/BigSummary-Experiments/experiments/WeatherAnalysis/data/part-00000 73952,28/6/2014,32 mm -> 10000: 
+RECORD: 73952,28/6/2014,32 mm
+V1: POSITIVE MATCH
+V2: POSITIVE MATCH
+PerfTrace approx: 50552
+V1_IMPACT: 10006
+V2_IMPACT: 10006
+Delayed  execution time: 42958
+Filtered execution time: 36992
+PASTE-FRIENDLY:
+50552
+10006
+10006
+42958
+36992
+-----------------
+FINAL RESULTS FOR Weather /Users/jteoh/Code/BigSummary-Experiments/experiments/WeatherAnalysis/data/part-00000 18090,17/4/1945,825 mm -> 10000: 
+RECORD: 18090,17/4/1945,825 mm
+V1: POSITIVE MATCH
+V2: POSITIVE MATCH
+PerfTrace approx: 49756
+V1_IMPACT: 10064
+V2_IMPACT: 10064
+Delayed  execution time: 39038
+Filtered execution time: 40008
+PASTE-FRIENDLY:
+49756
+10064
+10064
+39038
+40008
+-----------------
+FINAL RESULTS FOR Weather /Users/jteoh/Code/BigSummary-Experiments/experiments/WeatherAnalysis/data/part-00000 28415,3/7/2005,1589 mm -> 10000: 
+RECORD: 28415,3/7/2005,1589 mm
+V1: POSITIVE MATCH
+V2: POSITIVE MATCH
+PerfTrace approx: 51145
+V1_IMPACT: 10007
+V2_IMPACT: 10007
+Delayed  execution time: 39356
+Filtered execution time: 36926
+PASTE-FRIENDLY:
+51145
+10007
+10007
+39356
+36926
+-----------------
+FINAL RESULTS FOR Weather /Users/jteoh/Code/BigSummary-Experiments/experiments/WeatherAnalysis/data/part-00000 45582,24/2/2005,655 mm -> 10000: 
+RECORD: 45582,24/2/2005,655 mm
+V1: POSITIVE MATCH
+V2: POSITIVE MATCH
+PerfTrace approx: 48239
+V1_IMPACT: 10003
+V2_IMPACT: 10003
+Delayed  execution time: 39980
+Filtered execution time: 37258
+PASTE-FRIENDLY:
+48239
+10003
+10003
+39980
+37258
+-----------------
+FINAL RESULTS FOR Weather /Users/jteoh/Code/BigSummary-Experiments/experiments/WeatherAnalysis/data/part-00000 59141,29/5/1917,1679 mm -> 10000: 
+RECORD: 59141,29/5/1917,1679 mm
+V1: POSITIVE MATCH
+V2: POSITIVE MATCH
+PerfTrace approx: 50359
+V1_IMPACT: 10010
+V2_IMPACT: 10010
+Delayed  execution time: 38510
+Filtered execution time: 40688
+PASTE-FRIENDLY:
+50359
+10010
+10010
+38510
+40688
+-----------------
+FINAL RESULTS FOR Weather /Users/jteoh/Code/BigSummary-Experiments/experiments/WeatherAnalysis/data/part-00000 82870,13/8/2003,5.973933 ft -> 10000: 
+RECORD: 82870,13/8/2003,5.973933 ft
+V1: POSITIVE MATCH
+V2: POSITIVE MATCH
+PerfTrace approx: 51506
+V1_IMPACT: 10009
+V2_IMPACT: 10009
+Delayed  execution time: 38414
+Filtered execution time: 39559
+PASTE-FRIENDLY:
+51506
+10009
+10009
+38414
+39559
+-----------------
+FINAL RESULTS FOR Weather /Users/jteoh/Code/BigSummary-Experiments/experiments/WeatherAnalysis/data/part-00000 48961,1/11/1903,10.204273 ft -> 10000: 
+RECORD: 48961,1/11/1903,10.204273 ft
+V1: NEGATIVE MATCH
+V2: NEGATIVE MATCH
+PerfTrace approx: 
+V1_IMPACT: 
+V2_IMPACT: 
+Delayed  execution time: 42881
+Filtered execution time: 38535
+PASTE-FRIENDLY:
+
+
+
+42881
+38535
+-----------------
+FINAL RESULTS FOR Weather /Users/jteoh/Code/BigSummary-Experiments/experiments/WeatherAnalysis/data/part-00000 50615,18/2/1906,6.14904 ft -> 10000: 
+RECORD: 50615,18/2/1906,6.14904 ft
+V1: POSITIVE MATCH
+V2: POSITIVE MATCH
+PerfTrace approx: 50963
+V1_IMPACT: 10008
+V2_IMPACT: 10008
+Delayed  execution time: 39111
+Filtered execution time: 37968
+PASTE-FRIENDLY:
+50963
+10008
+10008
+39111
+37968
+-----------------
+FINAL RESULTS FOR Weather /Users/jteoh/Code/BigSummary-Experiments/experiments/WeatherAnalysis/data/part-00000 50615,2/4/2011,3.779169 ft -> 10000: 
+RECORD: 50615,2/4/2011,3.779169 ft
+V1: POSITIVE MATCH
+V2: POSITIVE MATCH
+PerfTrace approx: 48927
+V1_IMPACT: 10007
+V2_IMPACT: 10007
+Delayed  execution time: 39306
+Filtered execution time: 37444
+PASTE-FRIENDLY:
+48927
+10007
+10007
+39306
+37444
+-----------------
+FINAL RESULTS FOR Weather /Users/jteoh/Code/BigSummary-Experiments/experiments/WeatherAnalysis/data/part-00000 32817,5/9/1914,50 mm -> 10000: 
+RECORD: 32817,5/9/1914,50 mm
+V1: POSITIVE MATCH
+V2: POSITIVE MATCH
+PerfTrace approx: 48804
+V1_IMPACT: 10002
+V2_IMPACT: 10002
+Delayed  execution time: 38448
+Filtered execution time: 40171
+PASTE-FRIENDLY:
+48804
+10002
+10002
+38448
+40171
+-----------------
+FINAL RESULTS FOR Weather /Users/jteoh/Code/BigSummary-Experiments/experiments/WeatherAnalysis/data/part-00000 48961,1/11/1903,10.204273 ft -> 10000: 
+RECORD: 48961,1/11/1903,10.204273 ft
+V1: NEGATIVE MATCH
+V2: NEGATIVE MATCH
+PerfTrace approx: 
+V1_IMPACT: 
+V2_IMPACT: 
+Delayed  execution time: 46388
+Filtered execution time: 38545
+PASTE-FRIENDLY:
+
+
+
+46388
+38545
+-----------------
+FINAL RESULTS FOR Weather /Users/jteoh/Code/BigSummary-Experiments/experiments/WeatherAnalysis/data/part-00000 45866,19/2/1903,3991 mm -> 10000: 
+RECORD: 45866,19/2/1903,3991 mm
+V1: POSITIVE MATCH
+V2: POSITIVE MATCH
+PerfTrace approx: 54670
+V1_IMPACT: 9998
+V2_IMPACT: 9998
+Delayed  execution time: 42013
+Filtered execution time: 41765
+PASTE-FRIENDLY:
+54670
+9998
+9998
+42013
+41765

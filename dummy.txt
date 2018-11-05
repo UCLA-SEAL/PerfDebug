@@ -1,0 +1,9 @@
+	<div id="content">
+	  <a name="top" id="contentTop"></a>
+	        <h1 class="firstHeading">Talk:Acidophilus</h1>
+	  <div id="bodyContent">
+
+	    <li id="ca-nstab-main"
+	       	       ><a href="../../../../articles/a/b/t/Abtsbessingen.html">Article</a></li><li id="ca-talk"
+	       	       ><a href="http://en.wikipedia.org/wiki/Talk:Abtsbessingen">Current revision</a></li>	  </ul>
+	</div>

@@ -1,0 +1,160 @@
+-----------------
+FINAL RESULTS FOR StudentInfo5M /Users/jteoh/Code/Performance-Debug-Benchmarks/StudentInfo/studentData_5M.txt ownz htpnuohgpx female 18 0 Biology -> 10000: 
+RECORD: ownz htpnuohgpx female 18 0 Biology
+V1: POSITIVE MATCH
+V2: POSITIVE MATCH
+PerfTrace approx: 98264
+V1_IMPACT: 11142
+V2_IMPACT: 10007
+Delayed  execution time: 29937
+Filtered execution time: 30089
+PASTE-FRIENDLY:
+98264
+11142
+10007
+29937
+30089
+-----------------
+FINAL RESULTS FOR StudentInfo5M /Users/jteoh/Code/Performance-Debug-Benchmarks/StudentInfo/studentData_5M.txt nuvamqjhpm pqrzq female 18 0 Economics -> 10000: 
+RECORD: nuvamqjhpm pqrzq female 18 0 Economics
+V1: POSITIVE MATCH
+V2: POSITIVE MATCH
+PerfTrace approx: 143314
+V1_IMPACT: 10150
+V2_IMPACT: 10150
+Delayed  execution time: 34922
+Filtered execution time: 24706
+PASTE-FRIENDLY:
+143314
+10150
+10150
+34922
+24706
+-----------------
+FINAL RESULTS FOR StudentInfo5M /Users/jteoh/Code/Performance-Debug-Benchmarks/StudentInfo/studentData_5M.txt yqisuoat fuo female 23 2 Law -> 10000: 
+RECORD: yqisuoat fuo female 23 2 Law
+V1: POSITIVE MATCH
+V2: POSITIVE MATCH
+PerfTrace approx: 138474
+V1_IMPACT: 10156
+V2_IMPACT: 9109
+Delayed  execution time: 27692
+Filtered execution time: 24785
+PASTE-FRIENDLY:
+138474
+10156
+9109
+27692
+24785
+-----------------
+FINAL RESULTS FOR StudentInfo5M /Users/jteoh/Code/Performance-Debug-Benchmarks/StudentInfo/studentData_5M.txt fpqplbkax zrrlblkp female 20 1 IndustrialEngineering -> 10000: 
+RECORD: fpqplbkax zrrlblkp female 20 1 IndustrialEngineering
+V1: POSITIVE MATCH
+V2: POSITIVE MATCH
+PerfTrace approx: 142403
+V1_IMPACT: 9429
+V2_IMPACT: 9265
+Delayed  execution time: 32971
+Filtered execution time: 26877
+PASTE-FRIENDLY:
+142403
+9429
+9265
+32971
+26877
+-----------------
+FINAL RESULTS FOR StudentInfo5M /Users/jteoh/Code/Performance-Debug-Benchmarks/StudentInfo/studentData_5M.txt vlvpueqp wc female 19 0 IndustrialEngineering -> 10000: 
+RECORD: vlvpueqp wc female 19 0 IndustrialEngineering
+V1: POSITIVE MATCH
+V2: POSITIVE MATCH
+PerfTrace approx: 113713
+V1_IMPACT: 10064
+V2_IMPACT: 10005
+Delayed  execution time: 27647
+Filtered execution time: 24902
+PASTE-FRIENDLY:
+113713
+10064
+10005
+27647
+24902
+-----------------
+FINAL RESULTS FOR StudentInfo5M /Users/jteoh/Code/Performance-Debug-Benchmarks/StudentInfo/studentData_5M.txt fqdnmsqt kjybgsphrntxbgk male 25 3 Law -> 10000: 
+RECORD: fqdnmsqt kjybgsphrntxbgk male 25 3 Law
+V1: POSITIVE MATCH
+V2: POSITIVE MATCH
+PerfTrace approx: 113045
+V1_IMPACT: 10373
+V2_IMPACT: 9261
+Delayed  execution time: 26967
+Filtered execution time: 25007
+PASTE-FRIENDLY:
+113045
+10373
+9261
+26967
+25007
+-----------------
+FINAL RESULTS FOR StudentInfo5M /Users/jteoh/Code/Performance-Debug-Benchmarks/StudentInfo/studentData_5M.txt ppww zuotdxjphkyu female 19 0 Business -> 10000: 
+RECORD: ppww zuotdxjphkyu female 19 0 Business
+V1: POSITIVE MATCH
+V2: POSITIVE MATCH
+PerfTrace approx: 118492
+V1_IMPACT: 8622
+V2_IMPACT: 8622
+Delayed  execution time: 27002
+Filtered execution time: 25164
+PASTE-FRIENDLY:
+118492
+8622
+8622
+27002
+25164
+-----------------
+FINAL RESULTS FOR StudentInfo5M /Users/jteoh/Code/Performance-Debug-Benchmarks/StudentInfo/studentData_5M.txt wdokwpkzq zaajyyjqfhef female 20 1 Law -> 10000: 
+RECORD: wdokwpkzq zaajyyjqfhef female 20 1 Law
+V1: POSITIVE MATCH
+V2: POSITIVE MATCH
+PerfTrace approx: 140047
+V1_IMPACT: 10985
+V2_IMPACT: 9549
+Delayed  execution time: 27329
+Filtered execution time: 25906
+PASTE-FRIENDLY:
+140047
+10985
+9549
+27329
+25906
+-----------------
+FINAL RESULTS FOR StudentInfo5M /Users/jteoh/Code/Performance-Debug-Benchmarks/StudentInfo/studentData_5M.txt wjorz h female 25 3 Economics -> 10000: 
+RECORD: wjorz h female 25 3 Economics
+V1: POSITIVE MATCH
+V2: POSITIVE MATCH
+PerfTrace approx: 95847
+V1_IMPACT: 10925
+V2_IMPACT: 9537
+Delayed  execution time: 27571
+Filtered execution time: 24971
+PASTE-FRIENDLY:
+95847
+10925
+9537
+27571
+24971
+-----------------
+FINAL RESULTS FOR StudentInfo5M /Users/jteoh/Code/Performance-Debug-Benchmarks/StudentInfo/studentData_5M.txt boonhnwmbl bdliuhdczwb female 20 1 Law -> 10000: 
+RECORD: boonhnwmbl bdliuhdczwb female 20 1 Law
+V1: POSITIVE MATCH
+V2: POSITIVE MATCH
+PerfTrace approx: 117002
+V1_IMPACT: 10385
+V2_IMPACT: 9795
+Delayed  execution time: 26354
+Filtered execution time: 24486
+PASTE-FRIENDLY:
+117002
+10385
+9795
+26354
+24486

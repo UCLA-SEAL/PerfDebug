@@ -1,0 +1,198 @@
+-----------------
+FINAL RESULTS FOR WordCount /Users/jteoh/Documents/datasets/wikipedia_50GB_subset/file100096k 	       class="selected"	       ><a href="../../../../articles/a/b/t/Talk%7EAbtsbessingen_690c.html">Discussion</a></li><li id="ca-current" -> 30000: 
+RECORD: 	       class="selected"	       ><a href="../../../../articles/a/b/t/Talk%7EAbtsbessingen_690c.html">Discussion</a></li><li id="ca-current"
+V1: NEGATIVE MATCH
+&nbsp;
+V2: NEGATIVE MATCH
+
+PerfTrace approx: 98255
+V1_IMPACT: 24
+V2_IMPACT: 0
+Delayed  execution time: 36984
+Filtered execution time: 28350
+PASTE-FRIENDLY:
+98255
+24
+0
+36984
+28350
+-----------------
+FINAL RESULTS FOR WordCount /Users/jteoh/Documents/datasets/wikipedia_50GB_subset/file100096k 	       class="selected"	       ><a href="../../../../articles/a/b/t/Talk%7EAbtsbessingen_690c.html">Discussion</a></li><li id="ca-current" -> 30000: 
+RECORD: 	       class="selected"	       ><a href="../../../../articles/a/b/t/Talk%7EAbtsbessingen_690c.html">Discussion</a></li><li id="ca-current"
+V1: NEGATIVE MATCH
+   &lt;use
+V2: NEGATIVE MATCH
+   Unique existence itself has not intelligent purposes or intend, since it does not have a general or unique reasoning but a net direction. Intend, decision or so called freedom are only human acts, because human reasoning which is capable to project and ‘feel’ an imagined future events, which can influence a present decision depending the effects on our personal or our species comfort level of survival, but not reality itself which is forever and with no need of survival actions. 
+PerfTrace approx: 102327
+V1_IMPACT: 3
+V2_IMPACT: 1
+Delayed  execution time: 37458
+Filtered execution time: 27727
+PASTE-FRIENDLY:
+102327
+3
+1
+37458
+27727
+-----------------
+FINAL RESULTS FOR WordCount /Users/jteoh/Documents/datasets/wikipedia_50GB_subset/file100096k 	    <div id="contentSub"><span class="subpages">&lt; <a href="../../../../articles/a/b/s/Talk%7EAbstract_nonsense_ebf9.html" title="Talk:Abstract nonsense">Talk:Abstract nonsense</a></span></div> -> 30000: 
+RECORD: 	    <div id="contentSub"><span class="subpages">&lt; <a href="../../../../articles/a/b/s/Talk%7EAbstract_nonsense_ebf9.html" title="Talk:Abstract nonsense">Talk:Abstract nonsense</a></span></div>
+V1: NEGATIVE MATCH
+NewPP limit report
+V2: NEGATIVE MATCH
+NewPP limit report
+PerfTrace approx: 97861
+V1_IMPACT: 1141
+V2_IMPACT: 1141
+Delayed  execution time: 35997
+Filtered execution time: 27602
+PASTE-FRIENDLY:
+97861
+1141
+1141
+35997
+27602
+-----------------
+FINAL RESULTS FOR WordCount /Users/jteoh/Documents/datasets/wikipedia_50GB_subset/file100096k <h2><span class="editsection">[<a href="../../../../articles/a/b/u/Talk%7EAbu_Zubaydah_824a.html" title="Edit section: Conversation with CSloat">edit</a>]</span> <span class="mw-headline">Conversation with CSloat</span></h2> -> 30000: 
+RECORD: <h2><span class="editsection">[<a href="../../../../articles/a/b/u/Talk%7EAbu_Zubaydah_824a.html" title="Edit section: Conversation with CSloat">edit</a>]</span> <span class="mw-headline">Conversation with CSloat</span></h2>
+V1: NEGATIVE MATCH
+If the file has been modified from its original state, some details may not fully reflect the modified file.
+V2: NEGATIVE MATCH
+
+PerfTrace approx: 104805
+V1_IMPACT: 76
+V2_IMPACT: 0
+Delayed  execution time: 36200
+Filtered execution time: 27938
+PASTE-FRIENDLY:
+104805
+76
+0
+36200
+27938
+-----------------
+FINAL RESULTS FOR WordCount /Users/jteoh/Documents/datasets/wikipedia_50GB_subset/file100096k <li><span class="flagicon"><a href="../../../../articles/f/l/a/Image%7EFlag_of_Croatia.svg_6862.html" class="image" title="Flag of Croatia"><img alt="Flag of Croatia" src="../../../../images/shared/thumb/1/1b/Flag_of_Croatia.svg/22px-Flag_of_Croatia.svg.png" width="22" height="11" border="0" class="thumbborder" /></a></span> <a href="../../../../articles/i/g/o/Igor_Budan_34ee.html" title="Igor Budan">Igor Budan</a></li> -> 30000: 
+RECORD: <li><span class="flagicon"><a href="../../../../articles/f/l/a/Image%7EFlag_of_Croatia.svg_6862.html" class="image" title="Flag of Croatia"><img alt="Flag of Croatia" src="../../../../images/shared/thumb/1/1b/Flag_of_Croatia.svg/22px-Flag_of_Croatia.svg.png" width="22" height="11" border="0" class="thumbborder" /></a></span> <a href="../../../../articles/i/g/o/Igor_Budan_34ee.html" title="Igor Budan">Igor Budan</a></li>
+V1: NEGATIVE MATCH
+NewPP limit report
+V2: NEGATIVE MATCH
+NewPP limit report
+PerfTrace approx: 103579
+V1_IMPACT: 48
+V2_IMPACT: 37
+Delayed  execution time: 36021
+Filtered execution time: 26070
+PASTE-FRIENDLY:
+103579
+48
+37
+36021
+26070
+-----------------
+FINAL RESULTS FOR WordCount /Users/jteoh/Documents/datasets/wikipedia_50GB_subset/file100096k <h2><span class="editsection">[<a href="../../../../articles/a/c/o/Acorn_to_Oak_Foundation_f0a7.html" title="Edit section: External links">edit</a>]</span> <span class="mw-headline">External links</span></h2> -> 30000: 
+RECORD: <h2><span class="editsection">[<a href="../../../../articles/a/c/o/Acorn_to_Oak_Foundation_f0a7.html" title="Edit section: External links">edit</a>]</span> <span class="mw-headline">External links</span></h2>
+V1: NEGATIVE MATCH
+
+V2: NEGATIVE MATCH
+
+PerfTrace approx: 96010
+V1_IMPACT: 6
+V2_IMPACT: 6
+Delayed  execution time: 41187
+Filtered execution time: 27056
+PASTE-FRIENDLY:
+96010
+6
+6
+41187
+27056
+-----------------
+FINAL RESULTS FOR WordCount /Users/jteoh/Documents/datasets/wikipedia_50GB_subset/file100096k <li>As I explained later, YOU haven't tried to realize even the meaning of the texts of {{Proposed}} and {{guideline}}.</li> -> 30000: 
+RECORD: <li>As I explained later, YOU haven't tried to realize even the meaning of the texts of {{Proposed}} and {{guideline}}.</li>
+V1: NEGATIVE MATCH
+
+V2: NEGATIVE MATCH
+
+PerfTrace approx: 96904
+V1_IMPACT: 1202
+V2_IMPACT: 575
+Delayed  execution time: 41040
+Filtered execution time: 27839
+PASTE-FRIENDLY:
+96904
+1202
+575
+41040
+27839
+-----------------
+FINAL RESULTS FOR WordCount /Users/jteoh/Documents/datasets/wikipedia_50GB_subset/file100096k <td bgcolor="#F8F8FF">82.6 (on <a href="../../../../articles/f/u/l/Full-time_equivalent.html" title="Full-time equivalent">FTE</a> basis)<sup id="cite_ref-NCES_0-1" class="reference"><a href="#cite_note-NCES-0" title="">[1]</a></sup></td> -> 30000: 
+RECORD: <td bgcolor="#F8F8FF">82.6 (on <a href="../../../../articles/f/u/l/Full-time_equivalent.html" title="Full-time equivalent">FTE</a> basis)<sup id="cite_ref-NCES_0-1" class="reference"><a href="#cite_note-NCES-0" title="">[1]</a></sup></td>
+V1: NEGATIVE MATCH
+NewPP limit report
+V2: NEGATIVE MATCH
+NewPP limit report
+PerfTrace approx: 106270
+V1_IMPACT: 1893
+V2_IMPACT: 1429
+Delayed  execution time: 36046
+Filtered execution time: 26123
+PASTE-FRIENDLY:
+106270
+1893
+1429
+36046
+26123
+-----------------
+FINAL RESULTS FOR WordCount /Users/jteoh/Documents/datasets/wikipedia_50GB_subset/file100096k <h2><span class="mw-headline">Bear and bare</span></h2> -> 30000: 
+RECORD: <h2><span class="mw-headline">Bear and bare</span></h2>
+V1: NEGATIVE MATCH
+&nbsp;
+V2: NEGATIVE MATCH
+NewPP limit report
+PerfTrace approx: 96320
+V1_IMPACT: 7
+V2_IMPACT: 0
+Delayed  execution time: 42063
+Filtered execution time: 28814
+PASTE-FRIENDLY:
+96320
+7
+0
+42063
+28814
+-----------------
+FINAL RESULTS FOR WordCount /Users/jteoh/Documents/datasets/wikipedia_50GB_subset/file100096k <p>There are three steps to using Accelerated Reader. First, students choose and read a <a href="../../../../articles/f/i/c/Fiction.html" title="Fiction">fiction</a> or <a href="../../../../articles/n/o/n/Non-fiction.html" title="Non-fiction">non-fiction</a> book, textbook, or magazine. Teachers monitor reading including guided, paired, literature-based, and textbook reading. Second, students take a quiz. Teachers can create their own quizzes for those not available in Accelerated Reader. Third, the teacher receives information that is intended to assist, motivate <a href="../../../../articles/r/e/a/Reading_%28activity%29.html" class="mw-redirect" title="Reading (activity)">reading</a>, monitor progress, and target instruction. Reports regarding reading level and comprehension skills are available through the software.<sup id="cite_ref-AR1_1-0" class="reference"><a href="#cite_note-AR1-1" title="">[2]</a></sup></p> -> 30000: 
+RECORD: <p>There are three steps to using Accelerated Reader. First, students choose and read a <a href="../../../../articles/f/i/c/Fiction.html" title="Fiction">fiction</a> or <a href="../../../../articles/n/o/n/Non-fiction.html" title="Non-fiction">non-fiction</a> book, textbook, or magazine. Teachers monitor reading including guided, paired, literature-based, and textbook reading. Second, students take a quiz. Teachers can create their own quizzes for those not available in Accelerated Reader. Third, the teacher receives information that is intended to assist, motivate <a href="../../../../articles/r/e/a/Reading_%28activity%29.html" class="mw-redirect" title="Reading (activity)">reading</a>, monitor progress, and target instruction. Reports regarding reading level and comprehension skills are available through the software.<sup id="cite_ref-AR1_1-0" class="reference"><a href="#cite_note-AR1-1" title="">[2]</a></sup></p>
+V1: NEGATIVE MATCH
+                    Various exhibitions
+V2: NEGATIVE MATCH
+
+PerfTrace approx: 106697
+V1_IMPACT: 12
+V2_IMPACT: 0
+Delayed  execution time: 40733
+Filtered execution time: 28437
+PASTE-FRIENDLY:
+106697
+12
+0
+40733
+28437
+-----------------
+FINAL RESULTS FOR WordCount /Users/jteoh/Documents/datasets/wikipedia_50GB_subset/file100096k 	  	  	  <li id="f-credits">This page was last modified 20:45, 3 June 2008 by Wikipedia user <a href="../../../../articles/d/o/5/User%7EDO56_1ac3.html" title="User:DO56">DO56</a>. Based on work by Wikipedia user(s) Swordlord, <a href="../../../../articles/g/o/o/User%7EGood_Olfactory_9810.html" title="User:Good Olfactory">Good Olfactory</a>, <a href="../../../../articles/v/o/l/User%7EVolkovBot_5c6d.html" title="User:VolkovBot">VolkovBot</a>, <a href="../../../../articles/m/c/m/User%7EMcM.bot_ceb2.html" title="User:McM.bot">McM.bot</a>, <a href="../../../../articles/l/o/r/User%7ELordAnubisBOT_698b.html" title="User:LordAnubisBOT">LordAnubisBOT</a>, <a href="../../../../articles/a/l/_/User%7EAl_Ameer_son_8663.html" title="User:Al Ameer son">Al Ameer son</a>, <a href="../../../../articles/h/m/a/User%7EHmains_e270.html" title="User:Hmains">Hmains</a>, <a href="../../../../articles/v/a/l/User%7EValentinian_be8b.html" title="User:Valentinian">Valentinian</a>, Ian Pitchford, <a href="../../../../articles/s/t/b/User%7ESTBotD_8c4f.html" title="User:STBotD">STBotD</a>, <a href="../../../../articles/s/w/p/User%7ESwpb_9c6b.html" title="User:Swpb">Swpb</a>, <a href="../../../../articles/a/n/t/User%7EAntiVandalBot_aa84.html" title="User:AntiVandalBot">AntiVandalBot</a>, Michaelas10, <a href="../../../../articles/t/h/i/User%7EThijs%21bot_bdf4.html" title="User:Thijs!bot">Thijs!bot</a>, <a href="../../../../articles/c/m/d/User%7ECmdrObot_0605.html" title="User:CmdrObot">CmdrObot</a>, <a href="../../../../articles/t/a/w/User%7ETawkerbot2_313a.html" title="User:Tawkerbot2">Tawkerbot2</a>, <a href="../../../../articles/o/h/n/User%7EOhnoitsjamie_fc14.html" title="User:Ohnoitsjamie">Ohnoitsjamie</a>, <a href="../../../../articles/j/o/s/User%7EJoshdboz_c913.html" title="User:Joshdboz">Joshdboz</a>, <a href="../../../../articles/m/a/c/User%7EMackan_e4e7.html" title="User:Mackan">Mackan</a>, <a href="../../../../articles/s/h/a/User%7EShaolin128_97cf.html" title="User:Shaolin128">Shaolin128</a>, <a href="../../../../articles/m/k/8/User%7EMK8_cc7d.html" title="User:MK8">MK8</a> and <a href="../../../../articles/c/r/z/User%7ECrzrussian_3f2d.html" title="User:Crzrussian">Crzrussian</a> and Anonymous user(s) of Wikipedia.</li>	  <li id="f-copyright">All text is available under the terms of the <a class='internal' href="http://en.wikipedia.org/wiki/Wikipedia:Text_of_the_GNU_Free_Documentation_License" title="Wikipedia:Text of the GNU Free Documentation License">GNU Free Documentation License</a>. (See <b><a class='internal' href="http://en.wikipedia.org/wiki/Wikipedia:Copyrights" title="Wikipedia:Copyrights">Copyrights</a></b> for details.) <br /> Wikipedia&reg; is a registered trademark of the <a href="http://www.wikimediafoundation.org">Wikimedia Foundation, Inc</a>., a U.S. registered <a class='internal' href="http://en.wikipedia.org/wiki/501%28c%29#501.28c.29.283.29" title="501(c)(3)">501(c)(3)</a> <a href="http://wikimediafoundation.org/wiki/Deductibility_of_donations">tax-deductible</a> <a class='internal' href="http://en.wikipedia.org/wiki/Non-profit_organization" title="Non-profit organization">nonprofit</a> <a href="http://en.wikipedia.org/wiki/Charitable_organization" title="Charitable organization">charity</a>.<br /></li>	  <li id="f-about"><a href="../../../../articles/a/b/o/Wikipedia%7EAbout_8d82.html" title="Wikipedia:About">About Wikipedia</a></li>	  <li id="f-disclaimer"><a href="../../../../articles/g/e/n/Wikipedia%7EGeneral_disclaimer_3e44.html" title="Wikipedia:General disclaimer">Disclaimers</a></li>	  	</ul> -> 30000: 
+RECORD: 	  	  	  <li id="f-credits">This page was last modified 20:45, 3 June 2008 by Wikipedia user <a href="../../../../articles/d/o/5/User%7EDO56_1ac3.html" title="User:DO56">DO56</a>. Based on work by Wikipedia user(s) Swordlord, <a href="../../../../articles/g/o/o/User%7EGood_Olfactory_9810.html" title="User:Good Olfactory">Good Olfactory</a>, <a href="../../../../articles/v/o/l/User%7EVolkovBot_5c6d.html" title="User:VolkovBot">VolkovBot</a>, <a href="../../../../articles/m/c/m/User%7EMcM.bot_ceb2.html" title="User:McM.bot">McM.bot</a>, <a href="../../../../articles/l/o/r/User%7ELordAnubisBOT_698b.html" title="User:LordAnubisBOT">LordAnubisBOT</a>, <a href="../../../../articles/a/l/_/User%7EAl_Ameer_son_8663.html" title="User:Al Ameer son">Al Ameer son</a>, <a href="../../../../articles/h/m/a/User%7EHmains_e270.html" title="User:Hmains">Hmains</a>, <a href="../../../../articles/v/a/l/User%7EValentinian_be8b.html" title="User:Valentinian">Valentinian</a>, Ian Pitchford, <a href="../../../../articles/s/t/b/User%7ESTBotD_8c4f.html" title="User:STBotD">STBotD</a>, <a href="../../../../articles/s/w/p/User%7ESwpb_9c6b.html" title="User:Swpb">Swpb</a>, <a href="../../../../articles/a/n/t/User%7EAntiVandalBot_aa84.html" title="User:AntiVandalBot">AntiVandalBot</a>, Michaelas10, <a href="../../../../articles/t/h/i/User%7EThijs%21bot_bdf4.html" title="User:Thijs!bot">Thijs!bot</a>, <a href="../../../../articles/c/m/d/User%7ECmdrObot_0605.html" title="User:CmdrObot">CmdrObot</a>, <a href="../../../../articles/t/a/w/User%7ETawkerbot2_313a.html" title="User:Tawkerbot2">Tawkerbot2</a>, <a href="../../../../articles/o/h/n/User%7EOhnoitsjamie_fc14.html" title="User:Ohnoitsjamie">Ohnoitsjamie</a>, <a href="../../../../articles/j/o/s/User%7EJoshdboz_c913.html" title="User:Joshdboz">Joshdboz</a>, <a href="../../../../articles/m/a/c/User%7EMackan_e4e7.html" title="User:Mackan">Mackan</a>, <a href="../../../../articles/s/h/a/User%7EShaolin128_97cf.html" title="User:Shaolin128">Shaolin128</a>, <a href="../../../../articles/m/k/8/User%7EMK8_cc7d.html" title="User:MK8">MK8</a> and <a href="../../../../articles/c/r/z/User%7ECrzrussian_3f2d.html" title="User:Crzrussian">Crzrussian</a> and Anonymous user(s) of Wikipedia.</li>	  <li id="f-copyright">All text is available under the terms of the <a class='internal' href="http://en.wikipedia.org/wiki/Wikipedia:Text_of_the_GNU_Free_Documentation_License" title="Wikipedia:Text of the GNU Free Documentation License">GNU Free Documentation License</a>. (See <b><a class='internal' href="http://en.wikipedia.org/wiki/Wikipedia:Copyrights" title="Wikipedia:Copyrights">Copyrights</a></b> for details.) <br /> Wikipedia&reg; is a registered trademark of the <a href="http://www.wikimediafoundation.org">Wikimedia Foundation, Inc</a>., a U.S. registered <a class='internal' href="http://en.wikipedia.org/wiki/501%28c%29#501.28c.29.283.29" title="501(c)(3)">501(c)(3)</a> <a href="http://wikimediafoundation.org/wiki/Deductibility_of_donations">tax-deductible</a> <a class='internal' href="http://en.wikipedia.org/wiki/Non-profit_organization" title="Non-profit organization">nonprofit</a> <a href="http://en.wikipedia.org/wiki/Charitable_organization" title="Charitable organization">charity</a>.<br /></li>	  <li id="f-about"><a href="../../../../articles/a/b/o/Wikipedia%7EAbout_8d82.html" title="Wikipedia:About">About Wikipedia</a></li>	  <li id="f-disclaimer"><a href="../../../../articles/g/e/n/Wikipedia%7EGeneral_disclaimer_3e44.html" title="Wikipedia:General disclaimer">Disclaimers</a></li>	  	</ul>
+V1: NEGATIVE MATCH
+
+V2: NEGATIVE MATCH
+
+PerfTrace approx: 
+V1_IMPACT: 
+V2_IMPACT: 
+Delayed  execution time: 36704
+Filtered execution time: 26696
+PASTE-FRIENDLY:
+
+
+
+36704
+26696

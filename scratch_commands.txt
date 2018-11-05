@@ -36,8 +36,12 @@ export DATA_FILE="/Users/jteoh/Code/Performance-Debug-Benchmarks/StudentInfo/stu
 # Word Count
 export CLASS="WordCount" 
 export DATA_FILE="/Users/jteoh/Documents/datasets/wikipedia_50GB_subset/file100096k"
-# sort "/Users/jteoh/Documents/datasets/wikipedia_50GB_subset/file100096k" | uniq -u | gshuf -n 20 > /tmp/wc_uniq_shuf.out
+# sort "/Users/jteoh/Documents/datasets/wikipedia_50GB_subset/file100096k" | uniq -u | gshuf -n 50 > /tmp/wc_uniq_shuf.out
 # fgrep '' "/Users/jteoh/Documents/datasets/wikipedia_50GB_subset/file100096k" | wc -l 
+# this is ugly because you need to escape stuff too...
+# see https://stackoverflow.com/questions/15783701/which-characters-need-to-be-escaped-when-using-bash/20053121#20053121
+# sed -e "s/'/'\\\\''/g; 1s/^/'/; \$s/\$/'/"
+
 
 # Movie Ratings
 export CLASS="HistogramRatings" 
@@ -54,3 +58,11 @@ export DATA_FILE="/Users/jteoh/Code/BigSummary-Experiments/experiments/WeatherAn
 
 export RECORD="wjorz h female 25 3 Economics" 
 scripts/slowest_inputs_evaluation.sh
+
+
+
+# TO run everything but wordcount, which I haven't set up yet :/ 
+
+scripts/studentinfo_slowest_inputs.sh
+scripts/movieratings_slowest_inputs.sh
+scripts/weather_slowest_inputs.sh

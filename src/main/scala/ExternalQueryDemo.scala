@@ -33,7 +33,7 @@ object ExternalQueryDemo extends LineageBaseApp(
   private var execMode: ExecutionMode.Value = _
   private var testId: String = _
   private var hadoopFilePaths: Array[String] = _
-  
+  private var hadoopMinPartitions: Array[Int] = _
   
   /**
    * Endpoint to override the typical spark configuration.
@@ -47,7 +47,13 @@ object ExternalQueryDemo extends LineageBaseApp(
       throw new IllegalArgumentException("Exec mode string must be provided as one of " +
                                            ExecutionMode.values)
     )
-    hadoopFilePaths = args.drop(2)
+    // TODO: This used to be args.drop(2) and took multiple filepaths. Now it's not, because I
+    // assume there might be a specified number of partitions for each filepath too.
+    val hadoopArgs = args.drop(2)
+    hadoopArgs.map(path => path.split(":"))
+    hadoopFilePaths = args.lift(2).toArray
+    hadoopMinPartitions = args.lift(3).map(_.toInt).toArray
+    
     val specializedAppName = s"${appName}_${execMode}-(${hadoopFilePaths.mkString(",")})-${testId}"
     conf.setAppName(specializedAppName)
   }
@@ -57,8 +63,13 @@ object ExternalQueryDemo extends LineageBaseApp(
               s"${hadoopFilePaths.mkString(",")}")
     // demonstration that we can operate purely with the Spark context (+ external ignite dependencies)
     val sc = lc.sparkContext
-    
-    val hadoopSourceRDDs = hadoopFilePaths.map(sc.textFile(_))
+
+    val hadoopSourceRDDs = if(hadoopMinPartitions.isEmpty || hadoopMinPartitions.head <= 0) {
+      hadoopFilePaths.map(sc.textFile(_))
+    } else {
+      println(s"Using min partitions = ${hadoopMinPartitions.head}")
+      hadoopFilePaths.zip(hadoopMinPartitions).map({case (path, parts) => sc.textFile(path, parts)})
+    }
     
     Lineage.measureTimeWithCallback({ // wrap the whole thing because some internal calls (eg
       // perfWrapper.take(1)) actually execute a spark job and wrap the result in an RDD.
@@ -144,6 +155,7 @@ object ExternalQueryDemo extends LineageBaseApp(
             printLimit = defaultPrintLimit)
           if(true) { // V1 test
             val slowestInputs = perfWrapper.takeSlowestInputs(1)
+            //            printRDDWithMessage(slowestInputs.valuesWithScores, "DEBUGGING IDK")
             val offSetToTextRank: RDD[(Long, (String, Long))] =
               slowestInputs.joinInputTextRDDWithRankScore(hadoopSourceRDDs.head)
             // substring the string portion in case it's too long for printing.
