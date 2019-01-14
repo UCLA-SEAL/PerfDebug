@@ -29,7 +29,8 @@ object WordCountBaseline extends BaselineApp {
       logFile = args(0)
       local = args(1).toInt
     }
-    
+    sparkConf.set("spark.eventLog.enabled", "true")    
+
     //set up spark context
     val ctx = new SparkContext(sparkConf)
     

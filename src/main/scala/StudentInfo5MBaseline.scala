@@ -33,6 +33,8 @@ object StudentInfo5MBaseline extends BaselineApp {
       sparkConf.setAppName("StudentInfoBaseline").setMaster("local[6]") .set("spark.executor.memory", "2g").setMaster("local[6]")
       // local  = args(1).toInt
     }
+    sparkConf.set("spark.eventLog.enabled", "true")    
+
     //set up spark context
     val ctx = new SparkContext(sparkConf)
     ctx.setLogLevel("ERROR")
