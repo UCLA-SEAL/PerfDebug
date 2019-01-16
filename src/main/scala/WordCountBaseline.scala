@@ -21,13 +21,18 @@ object WordCountBaseline extends BaselineApp {
     val sparkConf = new SparkConf()
     var logFile = ""
     var local = 500
+    sparkConf.setAppName("WordCount")
     if (args.length < 2) {
       sparkConf.setMaster("local[6]")
-      sparkConf.setAppName("WordCount").set("spark.executor.memory", "2g")
+      sparkConf.set("spark.executor.memory", "2g")
       logFile =  "/Users/jteoh/Documents/datasets/wikipedia_50GB_subset/file100096k"
     } else {
       logFile = args(0)
-      local = args(1).toInt
+      // jteoh: idk what this was used for before.
+      // repurposing for master string.
+      // local = args(1).toInt
+      sparkConf.setMaster(args(1))
+      sparkConf.set("spark.executor.memory", "2g")
     }
     sparkConf.set("spark.eventLog.enabled", "true")    
 
