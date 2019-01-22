@@ -47,3 +47,16 @@ assemblyMergeStrategy in assembly := {
     val oldStrategy = (assemblyMergeStrategy in assembly).value
     oldStrategy(x)
 }
+
+// Only enable this block if you're trying to create an executable jar!
+assemblyExcludedJars in assembly := { 
+  val cp = (fullClasspath in assembly).value
+  cp filter { case x => 
+    // println(x)
+    // println(x.data)
+    val result = x.data.toString.contains("/lib/")
+    if(result) println("EXCLUDE: " + x)
+    result
+    //x.data.getName == "compile-0.1.0.jar"
+  }
+}

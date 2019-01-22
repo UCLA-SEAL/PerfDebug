@@ -25,16 +25,14 @@ object StudentInfoBaseline extends BaselineApp {
     //set up spark configuration
     val sparkConf = new SparkConf()
     var logFile = ""
-    var local  = 0
-    if(args.length < 2 && false){ // jteoh: disabled since I want to always use second case.
-      sparkConf.setAppName("Student_Info")
-      .set("spark.executor.memory", "2g").setMaster("local[6]")
-      logFile = "studentData.txt"
-    }else{
+    sparkConf.setAppName("StudentInfoBaseline-titian")
+    if(args.length == 0){
+      sparkConf.set("spark.executor.memory", "2g").setMaster("local[6]")
+      // logFile = "studentData.txt"
       logFile = "/Users/jteoh/Code/Performance-Debug-Benchmarks/StudentInfo" +
-        "/studentData_1M_bias0_0.30.txt"
-      sparkConf.setAppName("StudentInfoBaseline").setMaster("local[6]") .set("spark.executor.memory", "2g").setMaster("local[6]")
-      // local  = args(1).toInt
+              "/studentData_1M_bias0_0.30.txt"
+    }else{
+      logFile = args(0)
     }
     //set up spark context
     val ctx = new SparkContext(sparkConf)

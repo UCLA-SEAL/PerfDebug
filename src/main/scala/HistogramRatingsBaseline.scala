@@ -38,14 +38,13 @@ object HistogramRatingsBaseline extends BaselineApp {
       val sparkConf = new SparkConf()
       
       var logFile = ""
-      var local = 500
-      if (args.length < 2) {
+      sparkConf.setAppName("HistogramRatingsBaseline-titian")
+      if (args.length == 0) {
         sparkConf.setMaster("local[6]")
-        sparkConf.setAppName("Histogram Ratings").set("spark.executor.memory", "2g")
+        sparkConf.set("spark.executor.memory", "2g")
         logFile = "/Users/jteoh/Code/BigSummary-Experiments/experiments/MoviesAnalysis/data/file1s.data"
       } else {
         logFile = args(0)
-        local = args(1).toInt
       }
       
       //set up lineage
