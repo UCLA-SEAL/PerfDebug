@@ -6,7 +6,8 @@
 
 import org.apache.spark.{SparkConf, SparkContext}
 
-
+// NOT INTENDED FOR CLUSTER USE - just a convenient second app so I don't need too many argument
+// parsers.
 object StudentInfo5MBaseline extends BaselineApp {
   //  private val exhaustive = 0
   def run(args: Array[String]): Unit = {

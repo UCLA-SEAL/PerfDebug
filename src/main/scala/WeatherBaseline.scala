@@ -19,14 +19,13 @@ object WeatherBaseline extends BaselineApp {
     val sparkConf = new SparkConf()
     
     var logFile = ""
-    var local = 0
-    if (args.length < 2) {
+    sparkConf.setAppName("WeatherBaseline-spark")
+    if (args.length == 0 ) {
       sparkConf.setMaster("local[6]")
-      sparkConf.setAppName("Inverted Index").set("spark.executor.memory", "2g")
+        .set("spark.executor.memory", "2g")
       logFile = "/Users/jteoh/Code/BigSummary-Experiments/experiments/WeatherAnalysis/data/part-00000"
     } else {
       logFile = args(0)
-      local = args(1).toInt
     }
     //set up lineage
     //      var lineage = true

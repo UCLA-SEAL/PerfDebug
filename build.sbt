@@ -7,7 +7,9 @@ scalaVersion := "2.11.8"
 // addSbtPlugin("com.eed3si9n" % "sbt-assembly" % "0.14.7")
 
 // https://mvnrepository.com/artifact/org.apache.spark/spark-core
-libraryDependencies += "org.apache.spark" %% "spark-core" % "2.1.1"
+// jteoh: make sure to exclude this from the fatjar.
+// if you're running local, you may need to include it though.
+libraryDependencies += "org.apache.spark" %% "spark-core" % "2.1.1" % "provided" 
 
 // merge duplication error
 // https://stackoverflow.com/questions/25144484/sbt-assembly-deduplication-found-error
@@ -45,3 +47,10 @@ assemblyMergeStrategy in assembly := {
     val oldStrategy = (assemblyMergeStrategy in assembly).value
     oldStrategy(x)
 }
+
+// for local runMain, make sure spark jars are included. 
+// credit: https://stackoverflow.com/questions/18838944/how-to-add-provided-dependencies-back-to-run-test-tasks-classpath
+// <<= converted to := _.value
+// as specified in https://www.scala-sbt.org/1.x/docs/Migrating-from-sbt-013x.html
+// nvm, can't get this working. Just toggle the %provided flag as needed.
+// runMain in Compile := Defaults.runMainTask(fullClasspath in Compile, runner in (Compile, run))

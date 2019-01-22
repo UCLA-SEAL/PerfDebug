@@ -9,6 +9,8 @@ import scala.collection.mutable
  * Modified further by Jason for baseline usage on 9/21/18.
  * Modified by Katherine on 8/10/18.
  * Created by malig on 11/30/16.
+ *
+ * jteoh: This is the movie benchmark in use right now (1/16/19).
  */
 
 object HistogramRatingsBaseline extends BaselineApp {
@@ -36,14 +38,14 @@ object HistogramRatingsBaseline extends BaselineApp {
       val sparkConf = new SparkConf()
       
       var logFile = ""
-      var local = 500
-      if (args.length < 2) {
+      sparkConf.setAppName("HistogramRatingsBaseline-spark")
+      if (args.length == 0) {
         sparkConf.setMaster("local[6]")
-        sparkConf.setAppName("Histogram Ratings").set("spark.executor.memory", "2g")
+                  .set("spark.executor.memory", "2g")
         logFile = "/Users/jteoh/Code/BigSummary-Experiments/experiments/MoviesAnalysis/data/file1s.data"
       } else {
         logFile = args(0)
-        local = args(1).toInt
+        
       }
       
       //set up lineage
