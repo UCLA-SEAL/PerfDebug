@@ -8,4 +8,12 @@ To add dependencies:
 2.b.i: You'll want to have built the assembly folder and lineage folder beforehand obviously. `build/mvn package -DskipTests` (and go get a coffee)
 3. I just feel like this list needs at least three items, and the above is a mess.
 
-These are benchmarks to test Titian (not spark by itself, not PerfDebug)
+Dev note:
+	If trying to build for deployment... tough luck. idk what to do.
+	Update 2/7/19: It's been a while since I worked on this aspect of the build, but I think
+		that build.sbt has been configured to automatically filter out the external dependencies
+		from the Titian build. In other words, building this project should effectively give you
+		only the benchmark programs (which can be submitted with spark submit).
+		See Jason's cluster scripts repo (xulab-scripts?) for details on submission.
+
+
