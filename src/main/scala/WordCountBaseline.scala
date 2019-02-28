@@ -26,6 +26,7 @@ object WordCountBaseline extends BaselineApp {
       sparkConf.setMaster("local[6]")
       sparkConf.set("spark.executor.memory", "2g")
       logFile =  "/Users/jteoh/Documents/datasets/wikipedia_50GB_subset/file100096k"
+      sparkConf.set("spark.eventLog.enabled", "true")
     } else {
       logFile = args(0)
       // jteoh: idk what this was used for before.
@@ -35,7 +36,7 @@ object WordCountBaseline extends BaselineApp {
       // sparkConf.setMaster(args(1))
       // sparkConf.set("spark.executor.memory", "2g")
     }
-    sparkConf.set("spark.eventLog.enabled", "true")    
+    
 
     //set up spark context
     val ctx = new SparkContext(sparkConf)

@@ -57,7 +57,7 @@ object StudentInfoBaseline extends BaselineApp {
       val list = line.split(" ")
       (list(4).toInt, list(3).toInt)
     })
-    val average_age_by_grade = grade_age_pair.groupByKey
+    val average_age_by_grade_depr = grade_age_pair.groupByKey
                                .map(pair => {
                                  val itr = pair._2.toIterator
                                  var moving_average = 0.0
@@ -68,7 +68,18 @@ object StudentInfoBaseline extends BaselineApp {
                                  }
                                  (pair._1, moving_average)
                                })
-  
+    // Use aggByKey because it's far more efficient.
+    // Using a simple sum + count tracker, but in practice you could also use a more
+    // optimized moving average algorithm
+    // https://en.wikipedia.org/wiki/Moving_average#Cumulative_moving_average
+    // avg_n+1 = (x_n+1 + count*avg_n) / (count + 1)
+    //val average_age_by_grade2 = grade_age_pair.aggregateByKey((0.0, 0), 4)({case ((avg, count),
+    //next) => (((next + count * avg)/(count + 1), count+1))},)
+    val average_age_by_grade = grade_age_pair.aggregateByKey((0L, 0), 4)(
+                                  {case ((sum, count), next) => (sum + next, count+1)},
+                                  {case ((sum1, count1), (sum2, count2)) => (sum1+sum2,count1+count2)}
+    ).mapValues({case (sum, count) => sum.toDouble/count})
+    
     val out = measureTimeWithCallback({
       average_age_by_grade.collect()
     }, x => println(s"Collect time: $x ms"))
