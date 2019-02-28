@@ -20,7 +20,7 @@ abstract class LineageBaseApp(var lineageEnabled: Boolean = true,
                               var igniteLineageCloseDelay: Long = 5000L) {
   
   // drop the $ at the end for the corresponding object
-  val appName: String = getClass.getSimpleName.dropRight(1)
+  val appName: String = getClass.getSimpleName.dropRight(1) + "-perfdebug"
   // if Ignite is being used to store lineage data
   private val useIgniteForLineageStorage = lineageEnabled && withIgnite
   
@@ -88,13 +88,14 @@ abstract class LineageBaseApp(var lineageEnabled: Boolean = true,
    * Endpoint to override the typical spark configuration.
    */
   def initConf(args: Array[String], defaultConf: SparkConf): SparkConf = {
-    defaultConf // by default, this does nothing. Users can override if they have arg-specific confs
+    if(args.isEmpty)
+      defaultConf.setMaster(s"local[${threadNum.getOrElse("*")}]")
+    defaultConf // Users can override if they have arg-specific confs
   }
   
   private def buildDefaultConfiguration(): SparkConf = {
     new SparkConf()
       .setAppName(appName)
-      .setMaster(s"local[${threadNum.getOrElse("*")}]")
       .set("spark.eventLog.enabled", sparkEventLogsEnabled.toString)
   }
   
@@ -234,8 +235,8 @@ abstract class LineageBaseApp(var lineageEnabled: Boolean = true,
     block
   }
   
-  var delayTarget: Option[String] = _ // eg "ownz htpnuohgpx female 18 0 Biology"
-  var delayTime: Option[Long] = _ // time in milliseconds, eg 10000
+  var delayTarget: Option[String] = Option.empty // eg "ownz htpnuohgpx female 18 0 Biology"
+  var delayTime: Option[Long] = Option.empty // time in milliseconds, eg 10000
   
   def setDelayOpts(args: Array[String], baseOffset: Int = 0): Unit = {
     delayTarget = args.lift(baseOffset + 1)

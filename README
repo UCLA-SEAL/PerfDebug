@@ -1,3 +1,5 @@
+These benchmarks are for PerfDebug specifically (not titian, not spark)
+
 To add dependencies:
 1. Create lib folder
 2. Copy (or just link) jars from perfdebug assembly folder (may need to build beforehand with `build/mvn package -DskipTest`)

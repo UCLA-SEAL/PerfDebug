@@ -20,6 +20,8 @@ object Weather extends LineageBaseApp(
     // jteoh: only conf-specific configuration is this one, which might not be required for usual
     // execution.
     //defaultConf.set("spark.executor.memory", "2g")
+    // jteoh 1/21: Assumption: no args = local exec. Any arg = cluster.
+    if(args.headOption.isEmpty)  defaultConf.set("spark.executor.memory", "2g")
     logFile = args.headOption.getOrElse("/Users/jteoh/Code/BigSummary-Experiments/experiments/WeatherAnalysis/data/part-00000")
     setDelayOpts(args)
     defaultConf.setAppName(s"${appName}-${logFile}")
@@ -56,10 +58,18 @@ object Weather extends LineageBaseApp(
         ((state , year)  , snow)
       ).iterator
     }
-    val deltaSnow: Lineage[((String, String), Float)] = split.groupByKey().map{ s  =>
-      val delta =  s._2.max - s._2.min
-      (s._1 , delta)
-    }.filter(s => addSleep(s._2))
+//    val deltaSnow: Lineage[((String, String), Float)] = split.groupByKey().map{ s  =>
+//      val delta =  s._2.max - s._2.min
+//      (s._1 , delta)
+//    }.filter(s => addSleep(s._2))
+  
+    val deltaSnow: Lineage[((String, String), Float)] = split.aggregateByKey(
+      (0F, 0F)
+    )(
+      {case ((curMin, curMax), next) => (Math.min(curMin, next), Math.max(curMax, next))},
+      {case ((minA, maxA), (minB, maxB)) => (Math.min(minA, minB), Math.max(maxA, maxB))}
+    ).mapValues({case (min, max) => max - min})
+     .filter(s => addSleep(s._2))
     val output = Lineage.measureTimeWithCallback({
       deltaSnow.collect()
     }, x => println(s"Collect time: $x ms"))

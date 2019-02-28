@@ -47,3 +47,14 @@ assemblyMergeStrategy in assembly := {
     val oldStrategy = (assemblyMergeStrategy in assembly).value
     oldStrategy(x)
 }
+
+// jteoh: for assembly, make sure to completely exclude everything in lib.
+assemblyExcludedJars in assembly := {
+  val cp = (fullClasspath in assembly).value
+  cp filter { case x =>
+     val result = x.data.toString.contains("/lib/")
+    if(result) println("EXCLUDE: " + x)
+    result
+  }
+}
+

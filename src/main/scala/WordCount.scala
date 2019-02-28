@@ -15,7 +15,8 @@ object WordCount extends LineageBaseApp(
   override def initConf(args: Array[String], defaultConf: SparkConf): SparkConf = {
     // jteoh: only conf-specific configuration is this one, which might not be required for usual
     // execution.
-    defaultConf.set("spark.executor.memory", "2g")
+    // jteoh 1/21: Assumption: no args = local exec. Any arg = cluster.
+    if(args.headOption.isEmpty)  defaultConf.set("spark.executor.memory", "2g")
     // defaultConf.set("spark.driver.memory", "2g")
     logFile = args.headOption.getOrElse("/Users/jteoh/Documents/datasets/wikipedia_50GB_subset/file100096k")
     setDelayOpts(args)

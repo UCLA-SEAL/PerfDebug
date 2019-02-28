@@ -16,13 +16,14 @@ object HistogramRatings extends LineageBaseApp(
                                               lineageEnabled = true,
                                               sparkLogsEnabled = false,
                                               sparkEventLogsEnabled = true,
-                                              igniteLineageCloseDelay = 15 * 1000
+                                              igniteLineageCloseDelay = 60 * 1000
                                              ) {
   var logFile: String = _
   override def initConf(args: Array[String], defaultConf: SparkConf): SparkConf = {
     // jteoh: only conf-specific configuration is this one, which might not be required for usual
     // execution.
-    defaultConf.set("spark.executor.memory", "2g")
+    // jteoh 1/21: Assumption: no args = local exec. Any arg = cluster.
+    if(args.headOption.isEmpty)  defaultConf.set("spark.executor.memory", "2g")
     // 2106 lines, 98MB
     logFile = args.headOption.getOrElse("/Users/jteoh/Code/BigSummary-Experiments/experiments/MoviesAnalysis/data/file1s.data")
     setDelayOpts(args)

@@ -18,6 +18,8 @@ object StudentInfo extends LineageBaseApp(
     // jteoh: only conf-specific configuration is this one, which might not be required for usual
     // execution.
     //defaultConf.set("spark.executor.memory", "2g")
+    // jteoh 1/21: Assumption: no args = local exec. Any arg = cluster.
+    if(args.headOption.isEmpty)  defaultConf.set("spark.executor.memory", "2g")
     logFile = args.headOption.getOrElse("/Users/jteoh/Code/Performance-Debug-Benchmarks/StudentInfo/studentData_1M_bias0_0.30.txt")
     defaultConf.setAppName(s"${appName}-${logFile}")
   }
@@ -51,7 +53,7 @@ object StudentInfo extends LineageBaseApp(
       val list = line.split(" ")
       (list(4).toInt, list(3).toInt)
     })
-    val average_age_by_grade = grade_age_pair.groupByKey()
+    val average_age_by_grade_depr = grade_age_pair.groupByKey()
                                .map(pair => {
                                  val itr = pair._2.toIterator
                                  var moving_average = 0.0
@@ -62,6 +64,12 @@ object StudentInfo extends LineageBaseApp(
                                  }
                                  (pair._1, moving_average)
                                })
+  
+    val average_age_by_grade: Lineage[(Int, Double)] = grade_age_pair.aggregateByKey((0L, 0), 4)(
+      {case ((sum, count), next) => (sum + next, count+1)},
+      {case ((sum1, count1), (sum2, count2)) => (sum1+sum2,count1+count2)}
+    ).mapValues({case (sum, count) => sum.toDouble/count})
+    
     
     val out = Lineage.measureTimeWithCallback({
       average_age_by_grade.collect()
