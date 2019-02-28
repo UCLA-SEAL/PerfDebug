@@ -68,10 +68,17 @@ object WeatherBaseline extends BaselineApp {
         ((state , year)  , snow)
       ).iterator
     }
-    val deltaSnow: Lineage[((String, String), Float)] = split.groupByKey().map{ s  =>
-      val delta =  s._2.max - s._2.min
-      (s._1 , delta)
-    }.filter(s => addSleep(s._2))
+//    val deltaSnow: Lineage[((String, String), Float)] = split.groupByKey().map{ s  =>
+//      val delta =  s._2.max - s._2.min
+//      (s._1 , delta)
+//    }.filter(s => addSleep(s._2))
+    val deltaSnow: Lineage[((String, String), Float)] = split.aggregateByKey(
+      (0F, 0F)
+    )(
+      {case ((curMin, curMax), next) => (Math.min(curMin, next), Math.max(curMax, next))},
+      {case ((minA, maxA), (minB, maxB)) => (Math.min(minA, minB), Math.max(maxA, maxB))}
+    ).mapValues({case (min, max) => max - min})
+     .filter(s => addSleep(s._2))
     val output =  measureTimeWithCallback(deltaSnow.collect(),
                                           x => println(s"Collect time: $x ms"))
     

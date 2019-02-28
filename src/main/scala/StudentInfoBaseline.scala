@@ -60,17 +60,22 @@ object StudentInfoBaseline extends BaselineApp {
       val list = line.split(" ")
       (list(4).toInt, list(3).toInt)
     })
-    val average_age_by_grade = grade_age_pair.groupByKey
-                               .map(pair => {
-                                 val itr = pair._2.toIterator
-                                 var moving_average = 0.0
-                                 var num = 1
-                                 while (itr.hasNext) {
-                                   moving_average = moving_average + (itr.next() - moving_average) / num
-                                   num = num + 1
-                                 }
-                                 (pair._1, moving_average)
-                               })
+//    val average_age_by_grade = grade_age_pair.groupByKey
+//                               .map(pair => {
+//                                 val itr = pair._2.toIterator
+//                                 var moving_average = 0.0
+//                                 var num = 1
+//                                 while (itr.hasNext) {
+//                                   moving_average = moving_average + (itr.next() - moving_average) / num
+//                                   num = num + 1
+//                                 }
+//                                 (pair._1, moving_average)
+//                               })
+  
+    val average_age_by_grade = grade_age_pair.aggregateByKey((0L, 0), 4)(
+      {case ((sum, count), next) => (sum + next, count+1)},
+      {case ((sum1, count1), (sum2, count2)) => (sum1+sum2,count1+count2)}
+    ).mapValues({case (sum, count) => sum.toDouble/count})
   
     val out = measureTimeWithCallback({
       average_age_by_grade.collect()
