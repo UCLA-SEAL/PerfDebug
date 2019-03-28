@@ -19,13 +19,14 @@ object StudentInfo5M extends LineageBaseApp(
   //  private val exhaustive = 0
   
   override def initConf(args: Array[String], defaultConf: SparkConf): SparkConf = {
+    var conf  = super.initConf(args, defaultConf)
     // jteoh: only conf-specific configuration is this one, which might not be required for usual
     // execution.
     //defaultConf.set("spark.executor.memory", "2g")
     logFile = args.headOption.getOrElse("/Users/jteoh/Code/Performance-Debug-Benchmarks/StudentInfo/studentData_5M.txt")
     
     setDelayOpts(args)
-    defaultConf.setAppName(s"${appName}-${logFile}")
+    conf.setAppName(s"${appName}-${logFile}")
   }
   
   def run(lc: LineageContext, args: Array[String]): Unit = {

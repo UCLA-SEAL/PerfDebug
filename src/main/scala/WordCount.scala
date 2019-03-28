@@ -13,14 +13,15 @@ object WordCount extends LineageBaseApp(
   var logFile: String = _
   val WITH_ARTIFICIAL_DELAY  = false
   override def initConf(args: Array[String], defaultConf: SparkConf): SparkConf = {
+    var conf = super.initConf(args, defaultConf)
     // jteoh: only conf-specific configuration is this one, which might not be required for usual
     // execution.
     // jteoh 1/21: Assumption: no args = local exec. Any arg = cluster.
-    if(args.headOption.isEmpty)  defaultConf.set("spark.executor.memory", "2g")
+    if(args.headOption.isEmpty)  conf.set("spark.executor.memory", "2g")
     // defaultConf.set("spark.driver.memory", "2g")
     logFile = args.headOption.getOrElse("/Users/jteoh/Documents/datasets/wikipedia_50GB_subset/file100096k")
     setDelayOpts(args)
-    defaultConf.setAppName(s"${appName}-lineage:${lineageEnabled}-${logFile}")
+    conf.setAppName(s"${appName}-lineage:${lineageEnabled}-${logFile}")
   }
   override def run(lc: LineageContext, args: Array[String]): Unit = {
     //set up logging

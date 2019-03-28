@@ -4,4 +4,7 @@ To add dependencies:
 1. Create lib folder
 2. Copy (or just link) jars from perfdebug assembly folder (may need to build beforehand with `build/mvn package -DskipTest`)
 3. Make sure ignite is available and $IGNITE_HOME is defined.
-4. Use scripts under scripts/ directory.
+
+
+For ease of use: check scripts under scripts/ directory.
+

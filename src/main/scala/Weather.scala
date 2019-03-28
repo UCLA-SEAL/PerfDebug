@@ -1,5 +1,5 @@
 import org.apache.spark.SparkConf
-import org.apache.spark.lineage.LineageContext
+import org.apache.spark.lineage.{LineageContext, PerfDebugConf}
 import org.apache.spark.lineage.LineageContext._
 import org.apache.spark.lineage.rdd.Lineage
 
@@ -24,7 +24,16 @@ object Weather extends LineageBaseApp(
     if(args.headOption.isEmpty)  defaultConf.set("spark.executor.memory", "2g")
     logFile = args.headOption.getOrElse("/Users/jteoh/Code/BigSummary-Experiments/experiments/WeatherAnalysis/data/part-00000")
     setDelayOpts(args)
-    defaultConf.setAppName(s"${appName}-${logFile}")
+    defaultConf.setAppName(s"${appName}-lineage:${lineageEnabled}-${logFile}")
+  
+//    // Debugging overrides.
+//    defaultConf.setPerfConf(PerfDebugConf(wrapUDFs = true,
+//                                          materializeBuffers = true,
+//                                          uploadLineage = false
+//                                          //uploadBatchSize = 1000,
+//                                          ))
+    //uploadLineageRecordsLimit = 1000
+    defaultConf
   }
   
   override def run(lc: LineageContext, args: Array[String]): Unit = {
