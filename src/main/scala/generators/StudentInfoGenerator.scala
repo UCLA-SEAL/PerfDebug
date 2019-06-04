@@ -42,14 +42,14 @@ class StudentInfoGenerator {
   
   /** Configurations **/
   /* Dataset size */
-  val partitions = 30 // orig script: 400
+  val partitions = 47 // orig script: 400 // edit 5/30/2019: 47x2M = ~35.3GB, 30x20M = ~22.5GB
   val partitionSize  = 20000000// orig script: 100000 ie 100K
   // estimate: 96.1MB for 50 partitions x 50K records/part (2.5M records), so 38.44B/record
   // Targeting: 20GB -> 520,291,363 records, so we want to increase dataset by roughly 200x
   // test: 200 partitions, 2.5M records per partition
   
   /* Output file */
-  val outputTarget = "hdfs://zion-12.cs.ucla.edu:9002/user/plsys-jia/studentGrades"
+  val outputTarget = "hdfs://buckeye.cs.ucla.edu:9002/user/plsys-jia/studentGrades"
   
   /* Dataset bias - if you want to skew the data towards one grade in particular */
   val biasFraction = 0.0 // 0 to 1

@@ -57,10 +57,12 @@ object WeatherBaseline extends BaselineApp {
       val year = date.substring(date.lastIndexOf("/"))
       // gets month / date
       val monthdate= date.substring(0,date.lastIndexOf("/")-1)
-      List[((String , String) , Float)](
-        ((state , monthdate) , snow) ,
-        ((state , year)  , snow)
-      ).iterator
+      //      List[((String , String) , Float)](
+      //        ((state , monthdate) , snow) ,
+      //        ((state , year)  , snow)
+      //      ).iterator
+      Iterator(((state , monthdate) , snow) ,
+               ((state , year)  , snow))
     }
 //    val deltaSnow = split.groupByKey().map{ s  =>
 //      val delta =  s._2.max - s._2.min
