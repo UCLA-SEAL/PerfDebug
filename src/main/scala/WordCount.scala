@@ -48,7 +48,7 @@ object WordCount extends LineageBaseApp(
       s.split(" ").map(w => returnTuple(s, w))
     }).reduceByKey(_ + _)//.filter(s => failure(s))
   
-    if(true) {
+    if(false) {
       // TODO JTEOH DEBUGGING
       val count = Lineage.measureTimeWithCallback({
         sequence.count()
@@ -139,4 +139,16 @@ object WordCount extends LineageBaseApp(
     }
     x
   }*/
+
+  override def cmdLineDelay(x: String): String = {
+    if(x.hashCode() == 3768626) {
+      //Thread.sleep(delayTime.get)
+      // Weather: slowest task divided by number of records in task is
+      // Weather: (44 * 60 * 1000 ) / 5345409  = 0.5
+      // I'm not sure how to really test this one though. let's put an arbitrary 5min for testing?
+      // hopefully that's a lot more than necessary, we'll see after the query runs
+      Thread.sleep(10 * 1000)
+    }
+    x
+  }
 }

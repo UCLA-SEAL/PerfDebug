@@ -21,6 +21,7 @@ object StudentInfo extends LineageBaseApp(
     // jteoh 1/21: Assumption: no args = local exec. Any arg = cluster.
     if(args.headOption.isEmpty)  defaultConf.set("spark.executor.memory", "2g")
     logFile = args.headOption.getOrElse("/Users/jteoh/Code/Performance-Debug-Benchmarks/StudentInfo/studentData_1M_bias0_0.30.txt")
+    setDelayOpts(args)
     defaultConf.setAppName(s"${appName}-${logFile}")
   }
   
@@ -48,8 +49,9 @@ object StudentInfo extends LineageBaseApp(
     //spark program starts here
     println(s"Using logFile $logFile")
     val records = lc.textFile(logFile)
+    val delayedRecords = records.map(cmdLineDelay)
     // records.persist()
-    val grade_age_pair = records.map(line => {
+    val grade_age_pair = delayedRecords.map(line => {
       val list = line.split(" ")
       (list(4).toInt, list(3).toInt)
     })
@@ -137,5 +139,19 @@ object StudentInfo extends LineageBaseApp(
                      .take(1)
     printHadoopSources(slowestRec, records)
     slowestRec.traceBackAll().joinInputTextRDD(records)
+  }
+  
+  override def cmdLineDelay(x: String): String = {
+    // if(x.hashCode() == 572330877) { // for full-data, but below is for first-20 files.
+    if (x.hashCode() == 859217821) { // note that first-20 still works, it's just less
+      // representatively random... which doesn't matter for a randomly generated dataset anyways.
+      //Thread.sleep(delayTime.get)
+      // Weather: slowest task divided by number of records in task is
+      // Weather: (44 * 60 * 1000 ) / 5345409  = 0.5
+      // I'm not sure how to really test this one though. let's put an arbitrary 5min for testing?
+      // hopefully that's a lot more than necessary, we'll see after the query runs
+      Thread.sleep(10 * 1000)
+    }
+    x
   }
 }

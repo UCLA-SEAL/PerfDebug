@@ -17,10 +17,11 @@ abstract class LineageBaseApp(var lineageEnabled: Boolean = true,
                               var withIgnite: Boolean = true,
                               var rewriteAllHadoopFiles: Boolean = true,
                               var defaultPrintLimit: Option[Int] = Some(25),
-                              var igniteLineageCloseDelay: Long = 5000L) {
+                              var igniteLineageCloseDelay: Long = 5000L,
+                              var appNameOption: Option[String] = None) {
   
   // drop the $ at the end for the corresponding object
-  val appName: String = getClass.getSimpleName.dropRight(1) + "-perfdebug"
+  val appName: String = appNameOption.getOrElse(getClass.getSimpleName.dropRight(1) + "-perfdebug")
   // if Ignite is being used to store lineage data
   private val useIgniteForLineageStorage = lineageEnabled && withIgnite
   
@@ -34,9 +35,10 @@ abstract class LineageBaseApp(var lineageEnabled: Boolean = true,
         Lineage.measureTimeWithCallback({
           run(lc, args)
         }, x=> println(s"run() time: $x ms"))
+      } catch {
+        case e: Exception => e.printStackTrace()
       }
       finally {
-        lc.sparkContext.stop()
         if (useIgniteForLineageStorage) {
           println(s"Waiting $igniteLineageCloseDelay ms to ensure data is uploaded to ignite")
           // Spark/Titian will try to finalize the caches and upload to ignite after the job itself
@@ -57,7 +59,11 @@ abstract class LineageBaseApp(var lineageEnabled: Boolean = true,
         if(withIgnite) {
           LineageCacheRepository.close()
         }
-    
+        // jteoh: 6/1/2019 testing putting stop after the sleep delay
+        println("Note: spark context is currently stopped after closing lineage cache, which " +
+                  "results in the application hanging until ctrl-c'ed. If running overhead " +
+                  "evaluations or anything else automated, put the stop() call before the sleep!")
+        lc.sparkContext.stop()
       }
     }, x => println(s"Total time: $x ms"))
   }
@@ -206,10 +212,10 @@ abstract class LineageBaseApp(var lineageEnabled: Boolean = true,
     var i = 0
     while (curr.hasParent()) {
       val currCacheResults = curr.lineageCache.collect().take(resultLimit)
-      val currTap = curr.tap
+      val currTap = curr.lineageDependencies.tapStr
       val nextCacheResults = curr.dependencies.head.fullLineageCache.collect().take(resultLimit)
       curr = curr.traceBackwards()
-      val nextTap = curr.tap
+      val nextTap = curr.lineageDependencies.tapStr
       var joinedResults = curr.lineageCache.collect().take(resultLimit)
       println(s"------------- STAGE $i start --------------")
       println(s"PREVIOUS $currTap")
@@ -242,9 +248,21 @@ abstract class LineageBaseApp(var lineageEnabled: Boolean = true,
     delayTarget = args.lift(baseOffset + 1)
     delayTime = args.lift(baseOffset + 2).map(_.toLong)
     if(delayTarget.isDefined) {
+      println("Warning: Cmd line delay opts not working in distributed mode! hardcode into the " +
+                "benchmarks for now...")
       println("Delay target: " + delayTarget.get)
       println("Delay time: " + delayTime.get)
     }
+    
+    val igniteSleepOverride = args.lift(baseOffset+3).map(_.toLong)
+    if (igniteSleepOverride.isDefined) {
+      val igniteSleepOverrideValue = igniteSleepOverride.get
+      println("OVERRIDE IGNITE SLEEP: " + igniteSleepOverrideValue)
+      igniteLineageCloseDelay = igniteSleepOverrideValue
+    }
+  
+    
+    
   }
   
   def cmdLineDelay(x: String): String = {
@@ -253,5 +271,14 @@ abstract class LineageBaseApp(var lineageEnabled: Boolean = true,
       Thread.sleep(delayTime.get)
     }
     x
+  }
+  
+  def hashBasedDelay(hash: Int, delaySeconds: Int): String => String = {
+    x: String => {
+      if (x.hashCode() == hash) {
+        Thread.sleep(delaySeconds * 1000) // 60s formerly
+      }
+      x
+    }
   }
 }

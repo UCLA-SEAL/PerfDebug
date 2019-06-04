@@ -75,6 +75,7 @@ object ExternalQueryDemo extends LineageBaseApp(
       // perfWrapper.take(1)) actually execute a spark job and wrap the result in an RDD.
       // Wrapping the whole block ensures that all required jobs are measured together.
       val lineage = LineageWrapper.fromAppId(testId)
+      // println(s"Lineage output counts: ${lineage.lineageCache.count()}")
       // lineage.printDependencies()
       execMode match {
         case BACKWARD_ALL =>

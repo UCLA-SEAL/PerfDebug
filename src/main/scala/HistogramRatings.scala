@@ -23,10 +23,21 @@ object HistogramRatings extends LineageBaseApp(
     // jteoh: only conf-specific configuration is this one, which might not be required for usual
     // execution.
     // jteoh 1/21: Assumption: no args = local exec. Any arg = cluster.
-    if(args.headOption.isEmpty)  defaultConf.set("spark.executor.memory", "2g")
+    if(args.headOption.isEmpty)  {
+      super.initConf(args, defaultConf)
+      defaultConf.set("spark.executor.memory", "2g")
+      
+    }
+    
     // 2106 lines, 98MB
     logFile = args.headOption.getOrElse("/Users/jteoh/Code/BigSummary-Experiments/experiments/MoviesAnalysis/data/file1s.data")
-    setDelayOpts(args)
+    if(logFile.startsWith("/Users/jteoh")) {
+      // temp setting master when running on local machine
+      defaultConf.setMaster(s"local[${threadNum.getOrElse("*")}]")
+      defaultConf.set("spark.executor.memory", "2g")
+      defaultConf.set("spark.driver.memory", "2g")
+    }
+    setDelayOpts(args) // not actually used yet - additional arguments for bug injection
     defaultConf.setAppName(s"${appName}-lineage:${lineageEnabled}-${logFile}")
   }
   
@@ -90,8 +101,16 @@ override def run(lc: LineageContext, args: Array[String]): Unit = {
       reviews = s.substring(movieIndex + 1)
       movieStr = s.substring(0,movieIndex)
       val token: StringTokenizer = new StringTokenizer(reviews, ",")
+
       while (token.hasMoreTokens) {
         tok = token.nextToken
+        // jteoh: TEMPORARY HACK to boost runtimes
+        // var loop = 0
+        // var limit = 5
+        // while (loop != 0 || token.hasMoreTokens) {
+        //    if (loop == 0) tok = token.nextToken
+        //    loop = (loop + 1) % limit
+        
         reviewIndex = tok.indexOf("_")
         raterStr = tok.substring(0, reviewIndex)
         ratingStr = tok.substring(reviewIndex + 1)
@@ -172,11 +191,18 @@ override def run(lc: LineageContext, args: Array[String]): Unit = {
   }
   
   override def cmdLineDelay(x: String): String = {
-    // for movie ratings, we only pass the movie id because we know it's a unique key.
-    val movieIndex = x.indexOf(":")
-    if (movieIndex > 0) {
-      val movieStr = x.substring(0,movieIndex)
-      super.cmdLineDelay(movieStr)
+    //    // for movie ratings, we only pass the movie id because we know it's a unique key.
+    //    val movieIndex = x.indexOf(":")
+    //    if (movieIndex > 0) {
+    //      val movieStr = x.substring(0,movieIndex)
+    //      super.cmdLineDelay(movieStr)
+    //    }
+    //    x
+    // For the movie chunked dataset, movie id is NOT a unique key. Instead, we'll
+    // want to use a longer prefix (normally id + at least one rating is sufficient).
+    if(delayTarget.exists(x.startsWith)) {
+      println("DELAY TARGET FOUND!")
+      Thread.sleep(delayTime.get)
     }
     x
   }

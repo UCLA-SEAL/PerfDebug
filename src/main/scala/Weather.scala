@@ -13,6 +13,9 @@ object Weather extends LineageBaseApp(
                                       sparkEventLogsEnabled = true,
                                       igniteLineageCloseDelay = 10000
                                      ){
+  val HARDCODED_DELAY = 5 * 60
+  val HARDCODED_HASH = 958992427
+  
   var logFile: String = _
   val WITH_ARTIFICIAL_DELAY  = false
   
@@ -24,7 +27,8 @@ object Weather extends LineageBaseApp(
     if(args.headOption.isEmpty)  defaultConf.set("spark.executor.memory", "2g")
     logFile = args.headOption.getOrElse("/Users/jteoh/Code/BigSummary-Experiments/experiments/WeatherAnalysis/data/part-00000")
     setDelayOpts(args)
-    defaultConf.setAppName(s"${appName}-lineage:${lineageEnabled}-${logFile}")
+    defaultConf.setAppName(s"${appName}-lineage:${lineageEnabled}-${logFile}" +
+                             s"-HARDCODED_DELAY=${HARDCODED_DELAY}")
   
 //    // Debugging overrides.
 //    defaultConf.setPerfConf(PerfDebugConf(wrapUDFs = true,
@@ -50,7 +54,7 @@ object Weather extends LineageBaseApp(
      * *************************/
     
     val lines = lc.textFile(logFile, 1)
-    val delayedLines = lines.map(cmdLineDelay)
+    val delayedLines = lines.map(hashBasedDelay(HARDCODED_HASH, HARDCODED_DELAY))//lines.map(cmdLineDelay)
     val split: Lineage[((String, String), Float)] = delayedLines.flatMap{ s =>
       val tokens = s.split(",")
       // finds the state for a zipcode
@@ -62,10 +66,12 @@ object Weather extends LineageBaseApp(
       val year = date.substring(date.lastIndexOf("/"))
       // gets month / date
       val monthdate= date.substring(0,date.lastIndexOf("/")-1)
-      List[((String , String) , Float)](
-        ((state , monthdate) , snow) ,
-        ((state , year)  , snow)
-      ).iterator
+      //      List[((String , String) , Float)](
+      //        ((state , monthdate) , snow) ,
+      //        ((state , year)  , snow)
+      //      ).iterator
+      Iterator(((state , monthdate) , snow) ,
+               ((state , year)  , snow))
     }
 //    val deltaSnow: Lineage[((String, String), Float)] = split.groupByKey().map{ s  =>
 //      val delta =  s._2.max - s._2.min
@@ -168,5 +174,16 @@ object Weather extends LineageBaseApp(
   def zipToState(str : String):String = {
     return (str.toInt % 50).toString
   }
-
+  
+//  override def cmdLineDelay(x: String): String = {
+//    if(x.hashCode() == 958992427) {
+//      //Thread.sleep(delayTime.get)
+//      // Weather: slowest task divided by number of records in task is
+//      // Weather: (44 * 60 * 1000 ) / 5345409  = 0.5
+//      // I'm not sure how to really test this one though. let's put an arbitrary 5min for testing?
+//      // hopefully that's a lot more than necessary, we'll see after the query runs
+//      Thread.sleep(5 * 60 * 1000) // 60s formerly
+//    }
+//    x
+//  }
 }

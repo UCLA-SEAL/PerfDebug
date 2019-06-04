@@ -66,3 +66,13 @@ scripts/slowest_inputs_evaluation.sh
 scripts/studentinfo_slowest_inputs.sh
 scripts/movieratings_slowest_inputs.sh
 scripts/weather_slowest_inputs.sh
+
+
+
+
+# EVALUATIONS 5/30/2019
+use overhead-eval in each benchmark-launcher script
+to watch last file in directories:
+    watch -n 1 'echo "Showing last 1 files in each dir..."; for x in ~/evaluations/overheads/*/*; do ls -d -1 $x/* | tail -n 1; done'
+to grep for the collect times:
+    find ~/evaluations/overheads -name "*.log" | xargs fgrep "Collect time: "
