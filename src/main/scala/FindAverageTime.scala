@@ -1,6 +1,7 @@
 import org.apache.spark.{SparkConf, SparkContext}
 import Math.{max, min}
 
+import org.apache.spark.broadcast.Broadcast
 import org.apache.spark.rdd.RDD
 /**
  * Created by malig on 4/15/19.
@@ -19,6 +20,30 @@ object FindAverageTime extends BaselineApp {
                         Point(40.708060, -73.970089),
                         Point(40.824577, -73.890830),
                         Point(40.837730, -73.956664))
+  
+  //val xCutoff = -73.989166// Matches about 0.1% of the dataset (of 173M)
+  //val xCutoff = -74.00 // Matches about 0.04% of the dataset (of 173M)
+  val xCutoff = -74.017082 // Matches 1000 rows, out of 173M or so. Roughly 0.0006%?
+  val xMin = -5000.0  // -3547.9207
+  val yMin = -5000.0  //  -3084.2959
+  val xMax = 5000.0   // 3310.3645
+  val yMax = 5000.0   // 2945.9587
+  val baseTargetBorough = Array(Point(xMin, yMax),
+                                Point(xCutoff, yMax),
+                                Point(xCutoff, yMin),
+                                Point(xMin, yMin)
+  )
+  
+  // note: duplication factor must be odd or isInside will always return false!
+  val dupeFactor = 5001// 501
+  // choose List specifically for poor indexing behavior
+  val targetBorough = (1 to dupeFactor).flatMap(_ => baseTargetBorough).toList
+  var targetBoroughBroadcast: Broadcast[Seq[Point]] = _
+  val complementBorough = Array(Point(xCutoff, yMax),
+                                Point(xMax, yMax),
+                                Point(xMax, yMin),
+                                Point(xCutoff, yMin)
+  )
   
   /** *
    * The goal is to find the average revenue generated from trips originating from each borough near new york
@@ -106,15 +131,30 @@ object FindAverageTime extends BaselineApp {
   }
   
   def getBorough(p: Point): Int = {
-    if (isInside(manhattan, 4, p)) {
+    if (isInside(manhattan, p)) {
       return 1
-    } else if (isInside(brooklyn, 5, p)) {
+    } else if (isInside(brooklyn, p)) {
+      return 2
+    } else if (isInside(complementBorough, p)) {
+      return 3
+    } else if (isInside(targetBorough, p)) {
+      return 4
+    } else
+        return -1
+  }
+  
+  def getBoroughOriginal(p: Point): Int = {
+    if (isInside(manhattan, p)) {
+      return 1
+    } else if (isInside(brooklyn, p)) {
       return 2
     } else return 3
   }
   
   // Returns true if the point p lies inside the polygon[] with n vertices
-  def isInside(polygon: Array[Point], n: Int, p: Point): Boolean = { // There must be at least 3 vertices in polygon[]
+  def isInside(polygon: Seq[Point], p: Point): Boolean = { // There must be at least 3 vertices in
+    // polygon[]
+    val n = polygon.length
     if (n < 3) return false
     // Create a point for line segment from p to infinite
     val extreme = Point(Double.MaxValue, p.y)

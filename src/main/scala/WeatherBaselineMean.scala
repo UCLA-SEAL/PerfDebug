@@ -7,7 +7,7 @@ import org.apache.spark.{SparkConf, SparkContext}
 // WARNING: THIS IS VERY FINNICKY - there is indeed one task that takes a long time, but it's
 // PostShuffle statistics (lineage and agg stats) sometimes do not upload (no error, but likely
 // related to GC)
-object WeatherBaseline extends BaselineApp {
+object WeatherBaselineMean extends BaselineApp {
   
   case class WeatherDataPoint(val snowFall: Float, val condition: String) {
     def this(tokens: Array[String]) = {
@@ -32,7 +32,7 @@ object WeatherBaseline extends BaselineApp {
     sparkConf.setAppName("WeatherBaseline-spark")
     if (args.length == 0 ) {
       sparkConf.setMaster("local[6]")
-        .set("spark.executor.memory", "2g")
+      .set("spark.executor.memory", "2g")
       logFile = "/Users/jteoh/Code/BigSummary-Experiments/experiments/WeatherAnalysis/data/part-00000"
     } else {
       logFile = args(0)
@@ -58,9 +58,9 @@ object WeatherBaseline extends BaselineApp {
       // val tokens = s.split(",")
       // finds the state for a zipcode
       var state = zipToState(tokenizer.nextToken()) // tokens(0)
-      var date = tokenizer.nextToken() //tokens(1)
-      //gets year
-      val year = date.substring(date.lastIndexOf("/")+1)
+    var date = tokenizer.nextToken() //tokens(1)
+    //gets year
+    val year = date.substring(date.lastIndexOf("/")+1)
       // gets month / date
       val monthdate = date.substring(0, date.lastIndexOf("/"))
       // val snow = convert_to_mm(tokenizer.nextToken()) //tokens(2))
@@ -68,21 +68,15 @@ object WeatherBaseline extends BaselineApp {
       Iterator(((state , monthdate) , snowStr) ,
                ((state , year)  , snowStr))
     }
-    val medianSnowFall: RDD[((String, String), Float)] =
-      split.groupByKey().mapValues(values => median(values.map(convert_to_mm)))
-    /* PREVIOUS WAS BAD BECAUSE OF TOO MUCH MAP-SIDE GC
-      val weatherPoint = new WeatherDataPoint(tokens.drop(2))
-      // val snow = convert_to_mm(tokens(2))
-      Iterator(((state , monthdate) , weatherPoint) ,
-               ((state , year)  , weatherPoint))
-    }
-    val medianSnowFall: RDD[((String, String), Float)] =
-      split.groupByKey()
-        .mapValues(points => median(points.map(_.snowFall)))*/
-  
-    val output =  measureTimeWithCallback(medianSnowFall.collect(),
+    val meanSnowFall =
+      split.aggregateByKey((0f, 0))(
+      {case ((sum, count), next) => (sum + convert_to_mm(next), count+1)},
+      {case ((sum1, count1), (sum2, count2)) => (sum1+sum2,count1+count2)}
+    ).mapValues({case (sum, count) => sum.toDouble/count})
+    
+    val output =  measureTimeWithCallback(meanSnowFall.collect(),
                                           x => println(s"Collect time: $x ms"))
-  
+    
     output.take(25).foreach(println)
     
     println("Job's DONE!")
