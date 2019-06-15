@@ -1,5 +1,7 @@
+import java.util.StringTokenizer
+
 import org.apache.spark.SparkConf
-import org.apache.spark.lineage.{LineageContext, PerfDebugConf}
+import org.apache.spark.lineage.LineageContext
 import org.apache.spark.lineage.LineageContext._
 import org.apache.spark.lineage.rdd.Lineage
 
@@ -13,11 +15,8 @@ object Weather extends LineageBaseApp(
                                       sparkEventLogsEnabled = true,
                                       igniteLineageCloseDelay = 10000
                                      ){
-  val HARDCODED_DELAY = 5 * 60
-  val HARDCODED_HASH = 958992427
   
   var logFile: String = _
-  val WITH_ARTIFICIAL_DELAY  = false
   
   override def initConf(args: Array[String], defaultConf: SparkConf): SparkConf = {
     // jteoh: only conf-specific configuration is this one, which might not be required for usual
@@ -27,8 +26,7 @@ object Weather extends LineageBaseApp(
     if(args.headOption.isEmpty)  defaultConf.set("spark.executor.memory", "2g")
     logFile = args.headOption.getOrElse("/Users/jteoh/Code/BigSummary-Experiments/experiments/WeatherAnalysis/data/part-00000")
     setDelayOpts(args)
-    defaultConf.setAppName(s"${appName}-lineage:${lineageEnabled}-${logFile}" +
-                             s"-HARDCODED_DELAY=${HARDCODED_DELAY}")
+    defaultConf.setAppName(s"${appName}-lineage:${lineageEnabled}-${logFile}")
   
 //    // Debugging overrides.
 //    defaultConf.setPerfConf(PerfDebugConf(wrapUDFs = true,
@@ -40,115 +38,97 @@ object Weather extends LineageBaseApp(
     defaultConf
   }
   
+  case class WeatherDataPoint(val snowFall: Float, val condition: String) {
+    def this(tokens: Array[String]) = {
+      this(convert_to_mm(tokens(0)), tokens(1))
+      
+    }
+    
+  }
   override def run(lc: LineageContext, args: Array[String]): Unit = {
+    //set up logging
+    //      val lm: LogManager = LogManager.getLogManager
+    //      val logger: Logger = Logger.getLogger(getClass.getName)
+    //      val fh: FileHandler = new FileHandler("myLog")
+    //      fh.setFormatter(new SimpleFormatter)
+    //      lm.addLogger(logger)
+    //      logger.setLevel(Level.INFO)
+    //      logger.addHandler(fh)
+    //set up spark configuration
+    val sparkConf = new SparkConf()
     
-    //start recording time for lineage
-    /** ************************
-     * Time Logging
-     * *************************/
-    //      val jobStartTimestamp = new java.sql.Timestamp(Calendar.getInstance.getTime.getTime)
-    //      val jobStartTime = System.nanoTime()
-    //      logger.log(Level.INFO, "JOb starts at " + jobStartTimestamp)
-    /** ************************
-     * Time Logging
-     * *************************/
+    var logFile = ""
+    sparkConf.setAppName("WeatherBaseline-spark")
+    if (args.length == 0 ) {
+      sparkConf.setMaster("local[6]")
+      .set("spark.executor.memory", "2g")
+      logFile = "/Users/jteoh/Code/BigSummary-Experiments/experiments/WeatherAnalysis/data/part-00000"
+    } else {
+      logFile = args(0)
+    }
+    //set up lineage
+    //      var lineage = true
+    //      lineage = true
     
-    val lines = lc.textFile(logFile, 1)
-    val delayedLines = lines.map(hashBasedDelay(HARDCODED_HASH, HARDCODED_DELAY))//lines.map(cmdLineDelay)
-    val split: Lineage[((String, String), Float)] = delayedLines.flatMap{ s =>
-      val tokens = s.split(",")
+    // data generation outline:
+    // Create random zipcodes + months + years, BUT
+    // Have a skewed state (zip % 50) + year combination. (preferably some fixed proportion of
+    // data?)
+    // test program out. If we need more records, just increase the total count
+    // If we need more data width, extend the data and case classes. eg add "atmospheric
+    // pressure", "wind", "conditions" (sunny, cloudy, windy, rainy, snowy), etc.
+    // Actually, this is probably even better to account for more width.
+    val lines = lc.textFile(logFile)
+    val split = lines.flatMap { s =>
+      val tokenizer = new StringTokenizer(s, ",")
+      
+      // val tokens = s.split(",")
       // finds the state for a zipcode
-      var state = zipToState(tokens(0))
-      var date = tokens(1)
-      // gets snow value and converts it into millimeter
-      val snow = convert_to_mm(tokens(2))
-      //gets year
-      val year = date.substring(date.lastIndexOf("/"))
+      var state = zipToState(tokenizer.nextToken()) // tokens(0)
+    var date = tokenizer.nextToken() //tokens(1)
+    //gets year
+    val year = date.substring(date.lastIndexOf("/")+1)
       // gets month / date
-      val monthdate= date.substring(0,date.lastIndexOf("/")-1)
-      //      List[((String , String) , Float)](
-      //        ((state , monthdate) , snow) ,
-      //        ((state , year)  , snow)
-      //      ).iterator
-      Iterator(((state , monthdate) , snow) ,
-               ((state , year)  , snow))
+      val monthdate = date.substring(0, date.lastIndexOf("/"))
+      // val snow = convert_to_mm(tokenizer.nextToken()) //tokens(2))
+      val snowStr = tokenizer.nextToken()
+      Iterator(((state , monthdate) , snowStr) ,
+               ((state , year)  , snowStr))
     }
-//    val deltaSnow: Lineage[((String, String), Float)] = split.groupByKey().map{ s  =>
-//      val delta =  s._2.max - s._2.min
-//      (s._1 , delta)
-//    }.filter(s => addSleep(s._2))
-  
-    val deltaSnow: Lineage[((String, String), Float)] = split.aggregateByKey(
-      (0F, 0F)
-    )(
-      {case ((curMin, curMax), next) => (Math.min(curMin, next), Math.max(curMax, next))},
-      {case ((minA, maxA), (minB, maxB)) => (Math.min(minA, minB), Math.max(maxA, maxB))}
-    ).mapValues({case (min, max) => max - min})
-     .filter(s => addSleep(s._2))
-    val output = Lineage.measureTimeWithCallback({
-      deltaSnow.collect()
-    }, x => println(s"Collect time: $x ms"))
-    println(s"Number of outputs: ${output.length}")
-    
-    //outputting...
-    //deltaSnow.saveAsTextFile("output.txt");
-    /*
-    for(each <- output) {
-      println(each);
+    val medianSnowFall: Lineage[((String, String), Float)] =
+      split.groupByKey().mapValues(values => median(values.map(convert_to_mm)))
+    /* PREVIOUS WAS BAD BECAUSE OF TOO MUCH MAP-SIDE GC
+      val weatherPoint = new WeatherDataPoint(tokens.drop(2))
+      // val snow = convert_to_mm(tokens(2))
+      Iterator(((state , monthdate) , weatherPoint) ,
+               ((state , year)  , weatherPoint))
     }
-    */
+    val medianSnowFall: RDD[((String, String), Float)] =
+      split.groupByKey()
+        .mapValues(points => median(points.map(_.snowFall)))*/
     
-    /*
-    val writer = new PrintWriter(new File("output.txt"))
-    for(each <- output) {
-      writer.write(each);
-    }
-    writer.write(output)
-    writer.close()
-    */
-    /** ************************
-     * Time Logging
-     * *************************/
-    //      println(">>>>>>>>>>>>>  First Job Done  <<<<<<<<<<<<<<<")
-    //      val jobEndTimestamp = new java.sql.Timestamp(Calendar.getInstance.getTime.getTime)
-    //      val jobEndTime = System.nanoTime()
-    //      logger.log(Level.INFO, "JOb ends at " + jobEndTimestamp)
-    //      logger.log(Level.INFO, "JOb span at " + (jobEndTime - jobStartTime) / 1000 + "milliseconds")
+    val output =  Lineage.measureTimeWithCallback(medianSnowFall.collect(),
+                                          x => println(s"Collect time: $x ms"))
     
-    /** ************************
-     * Time Logging
-     * *************************/
-    
-    
-    /** ************************
-     * Time Logging
-     * *************************/
-    //      val DeltaDebuggingStartTimestamp = new java.sql.Timestamp(Calendar.getInstance.getTime.getTime)
-    //      val DeltaDebuggingStartTime = System.nanoTime()
-    //      logger.log(Level.INFO, "Record DeltaDebugging + L  (unadjusted) time starts at " + DeltaDebuggingStartTimestamp)
-    /** ************************
-     * Time Logging
-     * *************************/
-    
-    
-    //      val delta_debug = new DDNonExhaustive[String]
-    //      delta_debug.setMoveToLocalThreshold(local);
-    //      val returnedRDD = delta_debug.ddgen(lines , new Test, new SequentialSplit[String], lm, fh, DeltaDebuggingStartTime)
-    
-    /** ************************
-     * Time Logging
-     * *************************/
-    //      val DeltaDebuggingEndTime = System.nanoTime()
-    //      val DeltaDebuggingEndTimestamp = new java.sql.Timestamp(Calendar.getInstance.getTime.getTime)
-    //      logger.log(Level.INFO, "DeltaDebugging (unadjusted) + L  ends at " + DeltaDebuggingEndTimestamp)
-    //      logger.log(Level.INFO, "DeltaDebugging (unadjusted)  + L takes " + (DeltaDebuggingEndTime - DeltaDebuggingStartTime) / 1000 + " milliseconds")
-    
-    /** ************************
-     * Time Logging
-     * *************************/
+    output.take(25).foreach(println)
     
     println("Job's DONE!")
   }
+  
+  def median(values: Iterable[Float]) = {
+    val sorted = values.toList.sorted // toList for extra performance issues!
+    val length = sorted.length
+    val mid = length / 2
+    if (length % 2 == 0) {
+      // take middle two points and average
+      val a = sorted(mid)
+      val b = sorted(mid + 1)
+      a + b / 2
+    } else {
+      sorted(mid)
+    }
+  }
+  
   
   def convert_to_mm(s: String): Float = {
     val unit = s.substring(s.length - 2)
@@ -159,31 +139,8 @@ object Weather extends LineageBaseApp(
     }
   }
   
-  val addSleep = if(WITH_ARTIFICIAL_DELAY) {
-    record:Float => {
-      if (record < 500f) {
-        Thread.sleep(500)
-      }
-      true
-    }
-  } else {
-    // dummy filter
-    record: Float => true
-  }
   
   def zipToState(str : String):String = {
     return (str.toInt % 50).toString
   }
-  
-//  override def cmdLineDelay(x: String): String = {
-//    if(x.hashCode() == 958992427) {
-//      //Thread.sleep(delayTime.get)
-//      // Weather: slowest task divided by number of records in task is
-//      // Weather: (44 * 60 * 1000 ) / 5345409  = 0.5
-//      // I'm not sure how to really test this one though. let's put an arbitrary 5min for testing?
-//      // hopefully that's a lot more than necessary, we'll see after the query runs
-//      Thread.sleep(5 * 60 * 1000) // 60s formerly
-//    }
-//    x
-//  }
 }
