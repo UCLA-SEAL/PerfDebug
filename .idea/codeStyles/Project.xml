@@ -1,0 +1,28 @@
+<component name="ProjectCodeStyleConfiguration">
+  <code_scheme name="Project" version="173">
+    <option name="RIGHT_MARGIN" value="100" />
+    <option name="WRAP_WHEN_TYPING_REACHES_RIGHT_MARGIN" value="true" />
+    <ScalaCodeStyleSettings>
+      <option name="ALIGN_IF_ELSE" value="true" />
+      <option name="USE_ALTERNATE_CONTINUATION_INDENT_FOR_PARAMS" value="true" />
+    </ScalaCodeStyleSettings>
+    <codeStyleSettings language="JAVA">
+      <option name="LINE_COMMENT_AT_FIRST_COLUMN" value="false" />
+      <option name="BLOCK_COMMENT_AT_FIRST_COLUMN" value="false" />
+      <option name="LINE_COMMENT_ADD_SPACE" value="true" />
+      <option name="KEEP_FIRST_COLUMN_COMMENT" value="false" />
+      <option name="WRAP_LONG_LINES" value="true" />
+      <indentOptions>
+        <option name="USE_RELATIVE_INDENTS" value="true" />
+      </indentOptions>
+    </codeStyleSettings>
+    <codeStyleSettings language="Scala">
+      <option name="ALIGN_MULTILINE_CHAINED_METHODS" value="true" />
+      <option name="ALIGN_MULTILINE_PARAMETERS_IN_CALLS" value="true" />
+      <option name="WRAP_LONG_LINES" value="true" />
+      <indentOptions>
+        <option name="KEEP_INDENTS_ON_EMPTY_LINES" value="true" />
+      </indentOptions>
+    </codeStyleSettings>
+  </code_scheme>
+</component>

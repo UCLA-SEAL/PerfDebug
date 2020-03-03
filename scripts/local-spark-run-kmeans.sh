@@ -1,0 +1,1 @@
+/Users/jteoh/Code/distributions/spark-2.2.0-bin-hadoop2.7/bin/spark-submit --conf spark.eventLog.enabled=true --conf spark.eventLog.dir=/tmp/spark-events --class iterative_provenance.KMeansNetwork target/scala-2.11/perfdebug-baselines_2.11-0.1.jar  3 -1.0 4
