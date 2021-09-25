@@ -1,104 +1,63 @@
-# Apache Spark
+# PerfDebug
+PerfDebug: Performance Debugging of Computation Skew in Dataflow Systems (SoCC 2019)
 
-Spark is a fast and general cluster computing system for Big Data. It provides
-high-level APIs in Scala, Java, Python, and R, and an optimized engine that
-supports general computation graphs for data analysis. It also supports a
-rich set of higher-level tools including Spark SQL for SQL and DataFrames,
-MLlib for machine learning, GraphX for graph processing,
-and Spark Streaming for stream processing.
+## Summary of PerfDebug
+Performance is a key factor for big data applications, and much research has been devoted to optimizing these applications. While prior work can diagnose and correct data skew, the problem of computation skew—abnormally high computation costs for a small subset of input data—has been largely overlooked. Computation skew commonly occurs in real-world applications and yet no tool is available for developers to pinpoint underlying causes. 
 
-<http://spark.apache.org/>
+To enable a user to debug applications that exhibit computation skew, we develop a post-mortem performance debugging tool. PerfDebug automatically finds input records responsible for such abnormalities in a big data application by reasoning about deviations in performance metrics such as job execution time, garbage collection time, and serialization time. The key to PerfDebug’s success is a data provenance-based technique that computes and propagates record-level computation latency to keep track of abnormally expensive records throughout the pipeline. Finally, the input records that have the largest latency contributions are presented to the user for bug fixing. We evaluate PerfDebug via in-depth case studies and observe that remediation such as removing the single most expensive record or simple code rewrite can achieve up to 16X performance improvement.
 
+## Team
+This project is developed by Professor [Miryung Kim](http://web.cs.ucla.edu/~miryung/)'s Software Engineering and Analysis Laboratory at UCLA. 
+If you encounter any problems, please open an issue or feel free to contact us:
 
-## Online Documentation
+[Jason Teoh](http://https://jiateoh.github.io/): PhD student, jteoh@cs.ucla.edu;
 
-You can find the latest Spark documentation, including a programming
-guide, on the [project web page](http://spark.apache.org/documentation.html).
-This README file only contains basic setup instructions.
+[Muhammad Ali Gulzar](https://people.cs.vt.edu/~gulzar/): Professor at Virginia Tech, gulzar@cs.vt.edu;
 
-## Building Spark
+[Guoqing Harry Xu](http://web.cs.ucla.edu/~harryxu/): Professor at UCLA, harryxu@cs.ucla.edu;
 
-Spark is built using [Apache Maven](http://maven.apache.org/).
-To build Spark and its example programs, run:
+[Miryung Kim](http://web.cs.ucla.edu/~miryung/): Professor at UCLA, miryung@cs.ucla.edu;
 
-    build/mvn -DskipTests clean package
+## How to cite 
+Please refer to our SoCC 2019 paper, [PerfDebug: Performance Debugging of Computation Skew in Dataflow Systems](http://web.cs.ucla.edu/~miryung/Publications/socc2019-perfdebug-teoh.pdf) for more details. 
 
-(You do not need to do this if you downloaded a pre-built package.)
+### Bibtex  
+@inproceedings{10.1145/3357223.3362727,
+author = {Teoh, Jason and Gulzar, Muhammad Ali and Xu, Guoqing Harry and Kim, Miryung},
+title = {PerfDebug: Performance Debugging of Computation Skew in Dataflow Systems},
+year = {2019},
+isbn = {9781450369732},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+url = {https://doi.org/10.1145/3357223.3362727},
+doi = {10.1145/3357223.3362727},
+abstract = {Performance is a key factor for big data applications, and much research has been
+devoted to optimizing these applications. While prior work can diagnose and correct
+data skew, the problem of computation skew---abnormally high computation costs for
+a small subset of input data---has been largely overlooked. Computation skew commonly
+occurs in real-world applications and yet no tool is available for developers to pinpoint
+underlying causes.To enable a user to debug applications that exhibit computation
+skew, we develop a post-mortem performance debugging tool. PerfDebug automatically
+finds input records responsible for such abnormalities in a big data application by
+reasoning about deviations in performance metrics such as job execution time, garbage
+collection time, and serialization time. The key to PerfDebug's success is a data
+provenance-based technique that computes and propagates record-level computation latency
+to keep track of abnormally expensive records throughout the pipeline. Finally, the
+input records that have the largest latency contributions are presented to the user
+for bug fixing. We evaluate PerfDebug via in-depth case studies and observe that remediation
+such as removing the single most expensive record or simple code rewrite can achieve
+up to 16X performance improvement.},
+booktitle = {Proceedings of the ACM Symposium on Cloud Computing},
+pages = {465–476},
+numpages = {12},
+keywords = {fault localization, data intensive scalable computing, data provenance, Performance debugging, big data systems},
+location = {Santa Cruz, CA, USA},
+series = {SoCC '19}
+}
 
-You can build Spark using more than one thread by using the -T option with Maven, see ["Parallel builds in Maven 3"](https://cwiki.apache.org/confluence/display/MAVEN/Parallel+builds+in+Maven+3).
-More detailed documentation is available from the project site, at
-["Building Spark"](http://spark.apache.org/docs/latest/building-spark.html).
+[DOI Link](https://doi.org/10.1145/3357223.3362727)
 
-For general development tips, including info on developing Spark using an IDE, see 
-[http://spark.apache.org/developer-tools.html](the Useful Developer Tools page).
-
-## Interactive Scala Shell
-
-The easiest way to start using Spark is through the Scala shell:
-
-    ./bin/spark-shell
-
-Try the following command, which should return 1000:
-
-    scala> sc.parallelize(1 to 1000).count()
-
-## Interactive Python Shell
-
-Alternatively, if you prefer Python, you can use the Python shell:
-
-    ./bin/pyspark
-
-And run the following command, which should also return 1000:
-
-    >>> sc.parallelize(range(1000)).count()
-
-## Example Programs
-
-Spark also comes with several sample programs in the `examples` directory.
-To run one of them, use `./bin/run-example <class> [params]`. For example:
-
-    ./bin/run-example SparkPi
-
-will run the Pi example locally.
-
-You can set the MASTER environment variable when running examples to submit
-examples to a cluster. This can be a mesos:// or spark:// URL,
-"yarn" to run on YARN, and "local" to run
-locally with one thread, or "local[N]" to run locally with N threads. You
-can also use an abbreviated class name if the class is in the `examples`
-package. For instance:
-
-    MASTER=spark://host:7077 ./bin/run-example SparkPi
-
-Many of the example programs print usage help if no params are given.
-
-## Running Tests
-
-Testing first requires [building Spark](#building-spark). Once Spark is built, tests
-can be run using:
-
-    ./dev/run-tests
-
-Please see the guidance on how to
-[run tests for a module, or individual tests](http://spark.apache.org/developer-tools.html#individual-tests).
-
-## A Note About Hadoop Versions
-
-Spark uses the Hadoop core library to talk to HDFS and other Hadoop-supported
-storage systems. Because the protocols have changed in different versions of
-Hadoop, you must build Spark against the same version that your cluster runs.
-
-Please refer to the build documentation at
-["Specifying the Hadoop Version"](http://spark.apache.org/docs/latest/building-spark.html#specifying-the-hadoop-version)
-for detailed guidance on building for a particular distribution of Hadoop, including
-building for particular Hive and Hive Thriftserver distributions.
-
-## Configuration
-
-Please refer to the [Configuration Guide](http://spark.apache.org/docs/latest/configuration.html)
-in the online documentation for an overview on how to configure Spark.
-
-## Contributing
-
-Please review the [Contribution to Spark guide](http://spark.apache.org/contributing.html)
-for information on how to get started contributing to the project.
+## Other Notes:
+* This project originated as a fork of [BigDebug](), which itself is inherently based on Apache Spark. 
+* Because the evaluation benchmarks depend directly on different variants of Spark (Standard Spark vs Titian vs PerfDebug), these are stored in other repositories.
+  * Links pending.
