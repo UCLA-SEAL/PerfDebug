@@ -58,6 +58,6 @@ series = {SoCC '19}
 [DOI Link](https://doi.org/10.1145/3357223.3362727)
 
 ## Other Notes:
-* This project originated as a fork of [BigDebug](), which itself is inherently based on Apache Spark. 
+* This project originated as a fork of [BigDebug](https://github.com/UCLA-SEAL/BigDebug), which itself is inherently based on Apache Spark. In particular, the original project code can be found in BigDebug's [`perf-ignite` branch](https://github.com/UCLA-SEAL/BigDebug/tree/perfdebug-ignite).
 * Because the evaluation benchmarks depend directly on different variants of Spark (Standard Spark vs Titian vs PerfDebug), these are stored in other repositories.
   * Links pending.
