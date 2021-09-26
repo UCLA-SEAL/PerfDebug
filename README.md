@@ -57,7 +57,14 @@ series = {SoCC '19}
 
 [DOI Link](https://doi.org/10.1145/3357223.3362727)
 
+## Benchmarks:
+The PerfDebug paper includes a set of benchmark programs evaluated across Spark, Titian, and PerfDebug. For the sake of consolidating everything in one repository, they are included here as separate branches. However, note that the actual programs require Spark libraries (jars) corresponding to the evaluation setting (Spark/Titian/PerfDebug), so it's typically recommended to have a separate repository from your PerfDebug code (i.e., we suggest cloning a second copy of the PerfDebug repo for use with the benchmark branches). 
+
+The benchmark locations are as follows:
+1. Spark (baseline) evaluation benchmarks: https://github.com/UCLA-SEAL/PerfDebug/tree/spark-benchmarks
+2. Titian evaluation benchmarks: https://github.com/UCLA-SEAL/PerfDebug/tree/titian-benchmarks
+3. PerfDebug evaluation benchmarks: https://github.com/UCLA-SEAL/PerfDebug/tree/perfdebug-benchmarks
+
 ## Other Notes:
 * This project originated as a fork of [BigDebug](https://github.com/UCLA-SEAL/BigDebug), which itself is inherently based on Apache Spark. In particular, the original project code can be found in BigDebug's [`perf-ignite` branch](https://github.com/UCLA-SEAL/BigDebug/tree/perfdebug-ignite).
-* Because the evaluation benchmarks depend directly on different variants of Spark (Standard Spark vs Titian vs PerfDebug), these are stored in other repositories.
-  * Links pending.
+* We recommend using IntelliJ as it is the recommended IDE for Spark development at the time that this project was forked.
